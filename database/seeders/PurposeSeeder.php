@@ -21,9 +21,6 @@ class PurposeSeeder extends Seeder
             ['lesson_id' => 2, 'purpose' => 'exam', 'purpose_ko' => '입시클래스', 'created_at' => now(), 'updated_at' => now()],
             ['lesson_id' => 2, 'purpose' => 'audition', 'purpose_ko' => '오디션클래스', 'created_at' => now(), 'updated_at' => now()],
             ['lesson_id' => 2, 'purpose' => 'pastime', 'purpose_ko' => '취미클래스', 'created_at' => now(), 'updated_at' => now()],
-            ['lesson_id' => 3, 'purpose' => 'exam', 'purpose_ko' => '입시클래스', 'created_at' => now(), 'updated_at' => now()],
-            ['lesson_id' => 3, 'purpose' => 'audition', 'purpose_ko' => '오디션클래스', 'created_at' => now(), 'updated_at' => now()],
-            ['lesson_id' => 3, 'purpose' => 'pastime', 'purpose_ko' => '취미클래스', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 }

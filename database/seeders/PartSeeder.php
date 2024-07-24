@@ -36,19 +36,7 @@ class PartSeeder extends Seeder
             ['group_id' => 9, 'part' => 'two-times-per-week', 'part_ko' => '단체레슨 주2회', 'created_at' => now(), 'updated_at' => now()],
             ['group_id' => 9, 'part' => 'one-time-per-week', 'part_ko' => '단체레슨 주1회', 'created_at' => now(), 'updated_at' => now()],
             ['group_id' => 10, 'part' => 'two-times-per-week', 'part_ko' => '주1회', 'created_at' => now(), 'updated_at' => now()],
-            ['group_id' => 10, 'part' => 'one-time-per-week', 'part_ko' => '주2회', 'created_at' => now(), 'updated_at' => now()],
-
-            ['group_id' => 11, 'part' => 'regular', 'part_ko' => '입시정규반', 'created_at' => now(), 'updated_at' => now()],
-            ['group_id' => 11, 'part' => 'preparatory', 'part_ko' => '입시예비반', 'created_at' => now(), 'updated_at' => now()],
-            ['group_id' => 12, 'part' => 'regular', 'part_ko' => '입시정규반', 'created_at' => now(), 'updated_at' => now()],
-            ['group_id' => 12, 'part' => 'preparatory', 'part_ko' => '입시예비반', 'created_at' => now(), 'updated_at' => now()],
-            ['group_id' => 13, 'part' => 'audition-a', 'part_ko' => '오디션 정규반A', 'created_at' => now(), 'updated_at' => now()],
-            ['group_id' => 13, 'part' => 'audition-b', 'part_ko' => '오디션 정규반B', 'created_at' => now(), 'updated_at' => now()],
-            ['group_id' => 13, 'part' => 'audition-c', 'part_ko' => '오디션 정규반C', 'created_at' => now(), 'updated_at' => now()],
-            ['group_id' => 14, 'part' => 'two-times-per-week', 'part_ko' => '단체레슨 주2회', 'created_at' => now(), 'updated_at' => now()],
-            ['group_id' => 14, 'part' => 'one-time-per-week', 'part_ko' => '단체레슨 주1회', 'created_at' => now(), 'updated_at' => now()],
-            ['group_id' => 15, 'part' => 'two-times-per-week', 'part_ko' => '주1회', 'created_at' => now(), 'updated_at' => now()],
-            ['group_id' => 15, 'part' => 'one-time-per-week', 'part_ko' => '주2회', 'created_at' => now(), 'updated_at' => now()],            
+            ['group_id' => 10, 'part' => 'one-time-per-week', 'part_ko' => '주2회', 'created_at' => now(), 'updated_at' => now()],          
         ]);
     }
 }

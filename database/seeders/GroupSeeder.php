@@ -27,12 +27,6 @@ class GroupSeeder extends Seeder
             ['purpose_id' => 5, 'group' => 'audition', 'group_ko' => '오디션 정규반', 'created_at' => now(), 'updated_at' => now()],
             ['purpose_id' => 5, 'group' => 'audition-basic', 'group_ko' => '오디션 기초반', 'created_at' => now(), 'updated_at' => now()],
             ['purpose_id' => 6, 'group' => 'group', 'group_ko' => '단체레슨', 'created_at' => now(), 'updated_at' => now()],
-            //보컬&댄스
-            ['purpose_id' => 7, 'group' => 'college-entrance', 'group_ko' => '예대입시반', 'created_at' => now(), 'updated_at' => now()],
-            ['purpose_id' => 7, 'group' => 'high-school-entrance', 'group_ko' => '예고입시반', 'created_at' => now(), 'updated_at' => now()],
-            ['purpose_id' => 8, 'group' => 'audition', 'group_ko' => '오디션 정규반', 'created_at' => now(), 'updated_at' => now()],
-            ['purpose_id' => 8, 'group' => 'audition-basic', 'group_ko' => '오디션 기초반', 'created_at' => now(), 'updated_at' => now()],
-            ['purpose_id' => 9, 'group' => 'group', 'group_ko' => '단체레슨', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 }

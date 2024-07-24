@@ -1,5 +1,5 @@
 <div class="">
-    <x-youtube-banner source="https://cdn.devdojo.com/pines/videos/coast.mp4"></x-youtube-banner>
+    <x-youtube-banner source="{{ asset('storage/video/7cf4958d5002916a5141c3b18de475d8.mp4') }}"></x-youtube-banner>
     <p>{{$lesson->lesson_ko}}</p>
     <div class="grid sm:grid-cols-3 max-w-5xl mx-auto p-2 gap-2">
         @foreach($lesson->purposes as $purpose)
@@ -30,4 +30,5 @@
             </div>
         </a>
     </div>
+    <livewire:components.apply />
 </div>
