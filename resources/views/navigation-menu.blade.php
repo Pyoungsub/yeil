@@ -14,14 +14,11 @@
                     <x-nav-link href="{{ route('intro') }}" :active="request()->routeIs('intro')">
                         {{ __('INTRO') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('lessons', ['lesson' => 'vocal']) }}" :active="request()->routeIs('dashboard')">
+                    <x-nav-link href="{{ route('lessons', ['lesson' => 'vocal']) }}" :active="request()->is('lessons/vocal') || request()->is('lessons/vocal/*')">
                         {{ __('VOCAL') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('lessons', ['lesson' => 'dance']) }}" :active="request()->routeIs('lessons')">
+                    <x-nav-link href="{{ route('lessons', ['lesson' => 'dance']) }}" :active="request()->is('lessons/dance') || request()->is('lessons/dance/*')">
                         {{ __('DANCE') }}
-                    </x-nav-link>                    
-                    <x-nav-link href="{{ route('lessons', ['lesson' => 'vocaldance']) }}" :active="request()->routeIs('dashboard')">
-                        {{ __('DANCE & VOCAL') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -40,7 +37,6 @@
                                     <span class="inline-flex rounded-md">
                                         <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
                                             {{ Auth::user()->name }}
-
                                             <svg class="ms-2 -me-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                             </svg>
@@ -136,6 +132,15 @@
                 @endif
             </div>
             <div class="mt-3 space-y-1">
+                <x-responsive-nav-link href="{{ route('intro') }}" :active="request()->routeIs('intro')">
+                    {{ __('INTRO') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('lessons', ['lesson' => 'vocal']) }}" :active="request()->routeIs('lessons')">
+                    {{ __('VOCAL') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('lessons', ['lesson' => 'dance']) }}" :active="request()->routeIs('lessons')">
+                    {{ __('DANCE') }}
+                </x-responsive-nav-link>
                 @auth
                     <!-- Account Management -->
                     <x-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
@@ -147,7 +152,7 @@
                             {{ __('API Tokens') }}
                         </x-responsive-nav-link>
                     @endif
-
+                   
                     <!-- Authentication -->
                     <form method="POST" action="{{ route('logout') }}" x-data>
                         @csrf
@@ -159,14 +164,15 @@
                     </form>
                 @else
                     <x-responsive-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
-                        {{ __('login') }}
+                        {{ __('LOGIN') }}
                     </x-responsive-nav-link>
                     @if (Route::has('register'))
                         <x-responsive-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">
-                            {{ __('Register') }}
+                            {{ __('REGISTER') }}
                         </x-responsive-nav-link>
                     @endif
                 @endif
+                
             </div>
         </div>
     </div>
