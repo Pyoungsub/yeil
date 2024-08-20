@@ -26,6 +26,8 @@ class DatabaseSeeder extends Seeder
             PurposeSeeder::class,
             GroupSeeder::class,
             PartSeeder::class,
+            FacilitySeeder::class,
+            ScheduleSeeder::class,
         ]);
         
     }

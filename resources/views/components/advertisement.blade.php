@@ -77,21 +77,14 @@
             <div class="swiper-slide">
                 <div class="w-full rounded-xl p-4 bg-gradient-to-b from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%">
                     <div class="mt-4 divide-y divide-gray-100 h-80">
-                        <p class="text-white py-2 text-xl">0-4</p>
+                        <p class="text-white py-2 text-xl">시설소개</p>
                     </div>
                 </div>
             </div>
             <div class="swiper-slide">
                 <div class="w-full rounded-xl p-4 bg-gradient-to-b from-indigo-500 from-10% via-purple-500 via-30% to-pink-500 to-90%">
                     <div class="mt-4 divide-y divide-gray-100 h-80">
-                        <p class="text-white py-2 text-xl">0-5</p>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="w-full rounded-xl p-4 bg-gradient-to-b from-indigo-500 from-10% via-purple-500 via-30% to-pink-500 to-90%">
-                    <div class="mt-4 divide-y divide-gray-100 h-80">
-                        <p class="text-white py-2 text-xl">0-6</p>
+                        <p class="text-white py-2 text-xl">인스타바로가기</p>
                     </div>
                 </div>
             </div>
