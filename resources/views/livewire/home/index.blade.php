@@ -16,7 +16,6 @@
         </div>
     </div>
     <x-courses />
-    <x-facilities />
     <x-advertisement />
     <div class="mt-12 max-w-xl mx-auto grid gap-12">
         <img class="aspect-video w-full flex items-center justify-center"  src="{{asset('storage/schedules/mNvXDdVAhpyDQWQSRBm3Ekt6xKBopMye5NqqKiut.png')}}" />
