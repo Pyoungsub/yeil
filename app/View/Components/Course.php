@@ -5,18 +5,17 @@ namespace App\View\Components;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
-use App\Models\Facility;
 
-class Facilities extends Component
+class Course extends Component
 {
-    public $facilities;
+    public $lesson;
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct($lesson)
     {
         //
-        $this->facilities = Facility::all();
+        $this->lesson = $lesson;
     }
 
     /**
@@ -24,6 +23,6 @@ class Facilities extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.facilities');
+        return view('components.course');
     }
 }

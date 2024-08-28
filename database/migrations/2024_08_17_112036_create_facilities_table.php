@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('facilities', function (Blueprint $table) {
             $table->id();
             $table->string('img_path', 2048);
-            $table->boolean('display');
+            $table->string('description');
             $table->timestamps();
         });
     }
