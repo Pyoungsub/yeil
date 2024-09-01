@@ -1,5 +1,5 @@
 <div class="mt-12 bg-slate-100 p-8 dark:bg-slate-800">
-    <figure class="max-w-5xl mx-auto grid grid-cols-2">
+    <figure class="max-w-3xl mx-auto grid grid-cols-2">
         <div class="pt-6 space-y-4">
             <blockquote>
                 <p class="text-lg">
