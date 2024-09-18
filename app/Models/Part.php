@@ -13,4 +13,17 @@ class Part extends Model
     {
         return $this->belongsTo(Group::class);
     }
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class);
+    }
+    public function scopeOrderByDayAndFrom()
+    {
+        return $this->schedules()->orderBy('day_id', 'asc')
+        ->orderBy('from', 'asc');
+    }
+    public function inquiries()
+    {
+        return $this->hasMany(Inquiry::class);
+    }
 }

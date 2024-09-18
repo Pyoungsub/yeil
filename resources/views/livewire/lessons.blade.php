@@ -36,7 +36,7 @@
     <div class="">
         <div class="relative h-full w-full aspect-[9/16] md:aspect-video">
             <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black">
-                <p class="font-bold text-3xl text-white">{{$lesson->id}}-0</p>
+                <p class="font-bold text-3xl text-white">{{$lesson->lesson_ko}}-0</p>
             </div>
         </div>
     </div>
@@ -44,10 +44,9 @@
         @foreach($lesson->purposes as $purpose)
             <a href="{{ route('purposes', ['lesson' => $lesson->lesson, 'purpose' => $purpose->purpose]) }}">
                 <div class="relative overflow-hidden rounded-2xl border w-full aspect-square bg-cover bg-no-repeat bg-center p-8 text-white" style="background-image:url({{asset('storage/company/7cf4958d5002916a5141c3b18de475d8.png')}})">
-                    {{$lesson->id}}-{{$purpose->id}}
+                    <h2 class="text-3xl font-semibold text-white">{{$purpose->purpose_ko}}</h2>
                 </div>
             </a>
         @endforeach
     </div>
-    <livewire:components.apply />
 </div>

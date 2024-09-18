@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Exception;
 use Illuminate\Support\Facades\Redis;
-
 class OauthController extends Controller
 {
     //
@@ -72,7 +71,6 @@ class OauthController extends Controller
             }
             else
             {
-                /*
                 $new_user = User::create([
                     'name' => $user->name,
                     'email' => $user->email,
@@ -80,7 +78,13 @@ class OauthController extends Controller
                     'profile_photo_path' => $user->avatar,
                 ]);
                 Auth::login($new_user);
-                */
+            }
+            if (session()->has('part_id') && auth()->user()->inquiries()->where('solved', false)->count() < 5) {
+                auth()->user()->inquiries()->firstOrCreate([
+                    'part_id' => session('part_id'),
+                    'solved' => false
+                ]);
+                $request->session()->forget('part_id');
             }
             return redirect()->intended('/');
         }

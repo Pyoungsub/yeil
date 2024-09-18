@@ -111,9 +111,7 @@
                     
                 </div>
                 <div class="mt-4 text-sm text-gray-600">
-                    <a class="" href="{{route('kakao.login')}}">
-                        <button class="bg-yellow-300 rounded-lg p-3 font-bold">카카오 로그인</button>
-                    </a>        
+                    <button class="bg-yellow-300 rounded-lg p-3 font-bold" @click="$wire.login(selected_part)">카카오 로그인</button>
                 </div>
             </div>
         </div>

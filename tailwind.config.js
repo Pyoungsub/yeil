@@ -14,7 +14,7 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['AppleSDGothicNeo', ...defaultTheme.fontFamily.sans],
             },
             borderRadius: {
                 'xl': '0.675rem',

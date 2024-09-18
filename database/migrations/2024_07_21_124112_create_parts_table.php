@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('group_id')->cascadeOnDelete();
             $table->string('part');
             $table->string('part_ko');
+            $table->string('description');
+            $table->integer('price');
             $table->timestamps();
         });
     }
