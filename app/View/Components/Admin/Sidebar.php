@@ -1,22 +1,19 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Admin;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
-use App\Models\Lesson;
 
-class Courses extends Component
+class Sidebar extends Component
 {
-    public $lessons;
     /**
      * Create a new component instance.
      */
     public function __construct()
     {
         //
-        $this->lessons = Lesson::all();
     }
 
     /**
@@ -24,6 +21,6 @@ class Courses extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.courses');
+        return view('components.admin.sidebar');
     }
 }

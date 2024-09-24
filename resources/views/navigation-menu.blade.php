@@ -62,17 +62,25 @@
                                 <div class="block px-4 py-2 text-xs text-gray-400">
                                     {{ __('Manage Account') }}
                                 </div>
-
                                 <x-dropdown-link href="{{ route('profile.show') }}">
                                     {{ __('Profile') }}
                                 </x-dropdown-link>
+                                <div class="border-t border-gray-200"></div>
+                                @if(auth()->user()->admin)
+                                <!-- Account Management -->
+                                <div class="block px-4 py-2 text-xs text-gray-400">
+                                    {{ __('Manage Site') }}
+                                </div>
+                                <x-dropdown-link href="{{ route('admin') }}">
+                                    {{ __('관리자페이지') }}
+                                </x-dropdown-link>
 
                                 <div class="border-t border-gray-200"></div>
+                                @endif
 
                                 <!-- Authentication -->
                                 <form method="POST" action="{{ route('logout') }}" x-data>
                                     @csrf
-
                                     <x-dropdown-link href="{{ route('logout') }}"
                                             @click.prevent="$root.submit();">
                                         {{ __('Log Out') }}

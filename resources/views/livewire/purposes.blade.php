@@ -74,17 +74,19 @@
                                     <div class="text-2xl font-bold text-gray-900">
                                         예일아카데미
                                     </div>
-                                    <div class="mt-4 text-sm text-gray-600">
+                                    <div class="mt-4 text-sm text-gray-600 grid gap-4">
                                         @foreach($purpose->groups as $group)
                                             <div class="">
                                                 <h3 class="font-bold text-lg">{{ $group->group_ko }}</h3>
                                                 <div class="grid gap-2">
                                                     @foreach($group->parts as $part)
                                                         <div class="border p-2">
-                                                            <div class="flex items-center gap-2">
-                                                                <span>{{ $part->part_ko }}</span>
-                                                                <span>{{ $part->description }}</span>
-                                                                <span>{{ number_format($part->price) }}원</span>
+                                                            <div class="flex items-center justify-between gap-8">
+                                                                <div class="">
+                                                                    <p>{{ $part->part_ko }}</p>
+                                                                    <p>{{ $part->description }}</p>
+                                                                </div>
+                                                                <p class="flex-none">{{ number_format($part->price) }}원</p>
                                                             </div>
                                                         </div>
                                                     @endforeach
@@ -194,7 +196,7 @@
             </div>
         </div>
     </div>
-    <div class="py-12 px-2 max-w-7xl mx-auto">        
+    <div class="py-12 px-2 max-w-7xl mx-auto">
         <div class="grid sm:grid-cols-3 gap-8">
             @foreach($purpose->curricula as $curriculum)
                 <div class="relative rounded-lg p-4 bg-gray-50">
@@ -367,4 +369,5 @@
         </div>
     </div>
     <x-footer.mobile-contact />
+    <x-footer.web />
 </div>

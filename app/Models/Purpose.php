@@ -29,4 +29,8 @@ class Purpose extends Model
     {
         return $this->hasMany(PurposeYoutube::class);
     }
+    public function additional_subjects()
+    {
+        return $this->hasMany(AdditionalSubject::class);
+    }
 }

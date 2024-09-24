@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Exception;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Log;
 class OauthController extends Controller
 {
     //
@@ -79,18 +80,21 @@ class OauthController extends Controller
                 ]);
                 Auth::login($new_user);
             }
+            //문의하기가 있을경우
             if (session()->has('part_id') && auth()->user()->inquiries()->where('solved', false)->count() < 5) {
                 auth()->user()->inquiries()->firstOrCreate([
                     'part_id' => session('part_id'),
                     'solved' => false
                 ]);
-                $request->session()->forget('part_id');
+                session()->forget('part_id');
+                return redirect()->route('inquiries');
             }
             return redirect()->intended('/');
         }
         catch(Exception $e)
         {
-            return redirect()->route('kakao.login');
+            Log::error($e);
+            return redirect()->route('home');
         }
     }
 }

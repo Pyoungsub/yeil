@@ -13,4 +13,8 @@ class Lesson extends Model
     {
         return $this->hasMany(Purpose::class);
     }
+    public function mainpage_lesson_photos()
+    {
+        return $this->hasMany(MainpageLessonPhoto::class);
+    }
 }

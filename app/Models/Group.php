@@ -17,4 +17,8 @@ class Group extends Model
     {
         return $this->hasMany(Part::class);
     }
+    public function additional_parts()
+    {
+        return $this->hasMany(AdditionalPart::class);
+    }
 }

@@ -50,7 +50,7 @@ class Purposes extends Component
         $this->validate([
             'title' => 'nullable|string|min:2',
             'sub_title' => 'nullable|string|min:2',
-            'photo' => 'nullable|image'
+            'photo' => 'nullable|file|mimes:jpg,jpeg,png|max:102400'
         ]);
         if($this->selected_curriculum)
         {

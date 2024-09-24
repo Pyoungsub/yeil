@@ -1,21 +1,19 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Footer;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Course extends Component
+class Web extends Component
 {
-    public $lesson;
     /**
      * Create a new component instance.
      */
-    public function __construct($lesson)
+    public function __construct()
     {
         //
-        $this->lesson = $lesson;
     }
 
     /**
@@ -23,6 +21,6 @@ class Course extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.course');
+        return view('components.footer.web');
     }
 }

@@ -17,7 +17,12 @@
         <!-- Styles -->
         @livewireStyles
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased"
+        x-data="{ scrolled: false }" 
+        x-init="
+            window.addEventListener('scroll', () => { scrolled = (window.scrollY > 50); });
+        "
+    >
         <x-banner />
 
         <div class="min-h-screen bg-gray-100">

@@ -15,6 +15,7 @@ class AdminSeeder extends Seeder
         //
         Admin::insert([
             ['user_id' => 1, 'role' => 'admin', 'created_at' => now(), 'updated_at' => now()],
+            ['user_id' => 2, 'role' => 'internal', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 }

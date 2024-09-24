@@ -38,7 +38,8 @@
         });
     "
 >
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-2">
+    <h1 class="text-2xl font-bold">수업문의</h1>
+    <div class="mt-4 grid md:grid-cols-2 lg:grid-cols-4 gap-2">
         <div class="group relative flex items-center  before:content-[''] before:absolute border">
             <label for="selected_purpose" class="px-2 w-20 flex-none text-sm">강의</label>
             <select name="" id="" x-model="selected_lesson" class="w-full border-0 focus:ring-0 disabled:cursor-not-allowed">

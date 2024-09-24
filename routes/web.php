@@ -23,11 +23,13 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+    Route::get('/inquiries', Livewire\Inquiries::class)->name('inquiries');
 });
 Route::middleware([CheckAdmin::class])->group(function () {
     Route::prefix('admin')->group(function (){
         Route::get('/', Livewire\Admin\Index::class)->name('admin');
         Route::get('/lessons', Livewire\Admin\Lessons::class)->name('admin.lessons');
+        Route::get('/inquiries', Livewire\Admin\Inquiries::class)->name('admin.inquiries');
         Route::get('/schedules', Livewire\Admin\Schedules::class)->name('admin.scheduless');
     });
 });
