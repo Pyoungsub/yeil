@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('curricula', function (Blueprint $table) {
+        Schema::create('purpose_idol_youtubes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('purpose_id')->cascadeOnDelete();
-            $table->string('title')->nullable();
-            $table->text('sub_title')->nullable();
-            $table->string('img_path')->nullable();
+            $table->string('link');
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('curricula');
+        Schema::dropIfExists('purpose_idol_youtubes');
     }
 };

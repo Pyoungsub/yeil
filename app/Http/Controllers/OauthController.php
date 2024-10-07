@@ -65,6 +65,7 @@ class OauthController extends Controller
          */
         try{
             $user = Socialite::driver('kakao')->user();
+            Log::info('User object:', (array) $user);
             $find_user = User::where('email', $user->email)->first();
             if($find_user)
             {

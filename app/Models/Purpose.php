@@ -33,4 +33,16 @@ class Purpose extends Model
     {
         return $this->hasMany(AdditionalSubject::class);
     }
+    public function purpose_photo()
+    {
+        return $this->hasOne(PurposePhoto::class);
+    }
+    public function purpose_banner_youtube()
+    {
+        return $this->hasOne(PurposeBannerYoutube::class);
+    }
+    public function purpose_idol_youtubes()
+    {
+        return $this->hasMany(PurposeIdolYoutube::class);
+    }
 }

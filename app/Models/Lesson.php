@@ -17,4 +17,8 @@ class Lesson extends Model
     {
         return $this->hasMany(MainpageLessonPhoto::class);
     }
+    public function lesson_youtube()
+    {
+        return $this->hasOne(LessonYoutube::class);
+    }
 }

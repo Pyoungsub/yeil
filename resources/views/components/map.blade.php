@@ -1,9 +1,9 @@
 <div class="mt-12 max-w-5xl mx-auto px-2">
-    <h1 class="text-2xl font-bold">오시는 길</h1>
-    <div id="map" class="mt-4 rounded-lg aspect-video w-full flex items-center justify-center border shadow-lg"></div>
-    <div class="mt-4 mb-12 text-center">
-        <p>서울특별시 양천구 신정동 900-21 화성빌딩 2/3F</p>
+    <div class="">
+        <h1 class="text-2xl font-bold">오시는 길</h1>
+        <p>서울특별시 양천구 목동로 213</p>
     </div>
+    <div id="map" class="my-4 rounded-lg aspect-video w-full flex items-center justify-center border shadow-lg"></div>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fe9dd7241ae66dbc0aa163efbca15817"></script>
     <script>
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div 

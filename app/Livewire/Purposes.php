@@ -11,6 +11,7 @@ use App\Models\PurposeYoutube;
 class Purposes extends Component
 {
     use WithFileUploads;
+
     public $lesson;
     public $purpose;
 
@@ -26,6 +27,32 @@ class Purposes extends Component
     public $selected_youtube;
     public $link;
 
+    public $banner_youtube_link;
+    public $bannerYoutubeModal;
+    public function modifyBannerYoutube()
+    {
+        $this->reset('banner_youtube_link');
+        if($this->purpose->purpose_banner_youtube)
+        {
+            $this->banner_youtube_link = $this->purpose->purpose_banner_youtube->link;
+        }
+        $this->bannerYoutubeModal = true;
+    }
+    public function saveYoutube()
+    {
+        
+        if($this->purpose->purpose_banner_youtube)
+        {
+            $this->purpose->purpose_banner_youtube->update(['link' => $this->banner_youtube_link]);
+        }
+        else
+        {
+            $this->purpose->purpose_banner_youtube()->create([
+                'link' => $this->banner_youtube_link
+            ]);
+        }
+        $this->reset(['banner_youtube_link', 'bannerYoutubeModal']);
+    }
     public function addCurriculum()
     {
         $this->reset(['selected_curriculum', 'title', 'sub_title', 'img_path', 'photo', 'photoPreview']);
