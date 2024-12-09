@@ -1,3 +1,3 @@
 <div>
-    {{-- Do your work, then step back. --}}
+    문의 목록
 </div>

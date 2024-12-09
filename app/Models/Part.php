@@ -13,6 +13,22 @@ class Part extends Model
     {
         return $this->belongsTo(Group::class);
     }
+    public function part_photo()
+    {
+        return $this->hasOne(PartPhoto::class);
+    }
+    public function describe()
+    {
+        return $this->hasOne(Description::class);
+    }
+    public function part_curricula()
+    {
+        return $this->hasMany(PartCurricula::class);
+    }
+    public function part_descriptions()
+    {
+        return $this->hasMany(PartDescription::class);
+    }
     public function schedules()
     {
         return $this->hasMany(Schedule::class);

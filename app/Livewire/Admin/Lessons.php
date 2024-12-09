@@ -18,11 +18,17 @@ class Lessons extends Component
     public $group_name;
     public $group_name_ko;
 
+    
     public function openGroupModal($id)
     {
         $this->reset(['group_name', 'group_name_ko']);
         $this->purpose = Purpose::find($id);
         $this->groupModal = true;
+    
+    }
+    public function deleteGroup($id)
+    {
+        Group::find($id)->delete();
     }
     public function modifyGroupModal($id)
     {
@@ -50,10 +56,34 @@ class Lessons extends Component
         $this->reset(['groupModal', 'selected_group', 'group_name', 'group_name_ko']);
     }
 
+    public $part;
+    public $part_ko;
+    public $description;
+    public $price;
+    public $addPartModal;
+
+    public function openAddPartModal($id)
+    {
+        $this->reset(['part', 'part_ko', 'description', 'price']);
+        $this->selected_group = Group::find($id);
+        $this->addPartModal = true;
+    }
+
+    public function addPart()
+    {
+        $this->selected_group->parts()->create([
+                'part' => $this->part,
+                'part_ko' => $this->part_ko,
+                'description' => $this->description,
+                'price' => $this->price
+        ]);
+        $this->reset(['addPartModal', 'selected_group', 'part', 'part_ko', 'description', 'price']);
+    }
+
+
     public $additionalPartModal;
     public $selected_additional_part;
     public $title;
-    public $price;
 
     public function openAdditionalPartModal($id)
     {

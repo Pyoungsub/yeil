@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PurposeIdolYoutube extends Model
+class LessonTuitionVideo extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    public function purpose()
+    public function Lesson()
     {
-        return $this->belongsTo(Purpose::class);
+        return $this->belongsTo(Lesson::class);
     }
 }

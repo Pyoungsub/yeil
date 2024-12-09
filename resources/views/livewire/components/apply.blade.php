@@ -1,4 +1,7 @@
-<div 
+<div class=""></div>
+{{--
+
+    <div 
     class="max-w-5xl mx-auto mt-12 px-4 lg:px-0"
     x-data="{
         programs:$wire.entangle('programs'),
@@ -118,3 +121,6 @@
         </div>
     </div>
 </div>
+
+
+    --}}

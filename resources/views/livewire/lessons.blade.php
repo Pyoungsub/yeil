@@ -1,28 +1,91 @@
 <div class="">
+    {{--
+        <div class="relative">
+            @auth
+                @if(auth()->user()->admin)
+                    <div class="absolute inset-0 z-20 flex items-center justify-center">
+                        <button class="rounded border-2 border-black px-4 py-1 bg-white font-bold" wire:click="modifyYoutube">수정</button>
+                    </div>
+                @endif
+            @endauth
+            <x-youtube-banner link="{{ $lesson->lesson_youtube ? $lesson->lesson_youtube->link  :  asset('storage/video/7cf4958d5002916a5141c3b18de475d8.png') }}"></x-youtube-banner>
+        </div>
+    --}}
     <div class="relative">
         @auth
             @if(auth()->user()->admin)
                 <div class="absolute inset-0 z-20 flex items-center justify-center">
-                    <button class="rounded border-2 border-black px-4 py-1 bg-white font-bold" wire:click="modifyYoutube">수정</button>
+                    <button class="rounded border-2 border-black px-4 py-1 bg-white font-bold" wire:click="modifyMainVideo">수정</button>
                 </div>
             @endif
         @endauth
-        <x-youtube-banner link="{{ $lesson->lesson_youtube ? $lesson->lesson_youtube->link  :  asset('storage/video/7cf4958d5002916a5141c3b18de475d8.png') }}"></x-youtube-banner>
+        <x-mp4 :source="$lesson_main_video" />
     </div>
     <div class="py-8 grid sm:grid-cols-3 max-w-5xl mx-auto p-2 gap-2">
         @foreach($lesson->purposes as $purpose)
-            <div class="relative overflow-hidden rounded-2xl border w-full aspect-square bg-cover bg-no-repeat bg-center p-8 text-white" style="background-image:url({{ $purpose->purpose_photo ? asset('storage/'.$purpose->purpose_photo->img_path ) :  asset('storage/company/7cf4958d5002916a5141c3b18de475d8.png') }}" loading="lazy">
-                <a href="{{ route('purposes', ['lesson' => $lesson->lesson, 'purpose' => $purpose->purpose]) }}">
-                    <h2 class="text-3xl font-semibold text-white">{{ $purpose->purpose_ko }}</h2>
+            @auth
+                @if(auth()->user()->admin)
+                    <div class="relative overflow-hidden rounded-2xl border w-full aspect-square bg-cover bg-no-repeat bg-center p-8 text-white" style="background-image:url({{ $purpose->purpose_photo ? asset('storage/'.$purpose->purpose_photo->img_path ) :  asset('storage/company/7cf4958d5002916a5141c3b18de475d8.png') }}" loading="lazy">
+                        <div class="absolute inset-0 bg-black bg-opacity-50 z-0"></div>
+                        <a class="relative z-10" href="{{ route('purposes', ['lesson' => $lesson->lesson, 'purpose' => $purpose->purpose]) }}">
+                            <h2 class="text-3xl font-semibold text-white">{{ $purpose->purpose_ko }}</h2>
+                        </a>
+                        <button wire:click="modify({{ $purpose->id }})" class="relative border border-white text-white rounded px-2 z-10">수정</button>
+                    </div>
+                @else
+
+                @endif
+            @else
+                <a class="" href="{{ route('purposes', ['lesson' => $lesson->lesson, 'purpose' => $purpose->purpose]) }}">
+                    <div class="relative overflow-hidden rounded-2xl border w-full aspect-square bg-cover bg-no-repeat bg-center p-8 text-white" style="background-image:url({{ $purpose->purpose_photo ? asset('storage/'.$purpose->purpose_photo->img_path ) :  asset('storage/company/7cf4958d5002916a5141c3b18de475d8.png') }}" loading="lazy">
+                        <div class="absolute inset-0 bg-black bg-opacity-50 z-0"></div>
+                        <h2 class="relative z-10 text-3xl font-semibold text-white">{{ $purpose->purpose_ko }}</h2>
+                    </div>
                 </a>
-                @auth
-                    @if(auth()->user()->admin)
-                        <button wire:click="modify({{ $purpose->id }})" class="border border-white text-white rounded px-2">수정</button>
-                    @endif
-                @endauth
-            </div>
+            @endauth
         @endforeach
     </div>
+    <x-dialog-modal wire:model.live="mainVideoModal" maxWidth="sm">
+        <x-slot name="title">
+            {{ __('메인영상 관리') }}
+        </x-slot>
+        <x-slot name="content">
+            <div x-data="{ uploading: false, progress: 0 }"
+                x-on:livewire-upload-start="uploading = true"
+                x-on:livewire-upload-finish="uploading = false"
+                x-on:livewire-upload-cancel="uploading = false"
+                x-on:livewire-upload-error="uploading = false"
+                x-on:livewire-upload-progress="progress = $event.detail.progress"
+                class=""
+            >
+                <x-label for="video" value="링크" />
+                <x-input accept="video/*" id="video" type="file" class="w-full block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100" 
+                wire:model="video" placeholder="url을 입력해주세요" />
+                <div wire:loading wire:target="video">Uploading...</div>
+                <div x-show="uploading">
+                    <progress max="100" x-bind:value="progress"></progress>
+                </div>
+                @if ($video)
+                    <p class="mt-4">Video Preview:</p>
+                    <video class="w-full" controls>
+                        <source src="{{ $video->temporaryUrl() }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                @endif
+                @if ($video_path)
+                    
+                @endif
+            </div>
+        </x-slot>
+        <x-slot name="footer">
+            <x-secondary-button wire:click="$set('mainVideoModal', false)" wire:loading.attr="disabled">
+                {{ __('Close') }}
+            </x-secondary-button>
+            <x-button class="ms-3" wire:click="saveMainVideo" wire:loading.attr="disabled">
+                {{ __('저장') }}
+            </x-button>
+        </x-slot>
+    </x-dialog-modal>
     <x-dialog-modal wire:model.live="youtubeModal">
         <x-slot name="title">
             {{ __('메인영상 관리') }}
@@ -101,5 +164,7 @@
             </x-button>
         </x-slot>
     </x-dialog-modal>
+    <livewire:lessons.tuitions :$lesson />
+    <x-footer.mobile-contact />
     <x-footer.web />
 </div>

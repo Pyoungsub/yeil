@@ -21,4 +21,20 @@ class Lesson extends Model
     {
         return $this->hasOne(LessonYoutube::class);
     }
+    public function lesson_tuition_photos()
+    {
+        return $this->hasMany(LessonTuitionPhoto::class);
+    }
+    public function lesson_tuition_youtubes()
+    {
+        return $this->hasMany(LessonTuitionYoutube::class);
+    }
+    public function lesson_main_video()
+    {
+        return $this->hasOne(LessonMainVideo::class);
+    }
+    public function lesson_tuition_videos()
+    {
+        return $this->hasMany(LessonTuitionVideo::class);
+    }
 }

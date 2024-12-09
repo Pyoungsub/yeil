@@ -7,6 +7,8 @@
                 dynamicBullets: true,
                 clickable: true
             },
+            slidesPerView: 1.3,
+            spaceBetween: 50,
         });
     "
 >
@@ -16,7 +18,7 @@
             @foreach($facilities as $facility)
                 <div class="swiper-slide">
                     <div class="relative w-full aspect-square sm:aspect-video rounded-xl">
-                        <h2 class="absolute bottom-0 right-0 p-4 text-2xl font-bold text-white">{{ $facility->description }}</h2>
+                        <h2 class="absolute top-4 left-0 text-2xl font-bold bg-black/30 text-white rounded-sm px-1">{{ $facility->description }}</h2>
                         <div class="rounded-lg mt-4 divide-y divide-gray-100 w-full h-full bg-cover bg-no-repeat bg-center p-8bg-cover bg-no-repeat bg-center p-8" style="background-image:url({{asset('storage/'.$facility->img_path)}})"></div>
                     </div>
                 </div>

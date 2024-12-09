@@ -11,9 +11,11 @@
                 </div>
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('intro') }}" :active="request()->routeIs('intro')">
-                        {{ __('INTRO') }}
-                    </x-nav-link>
+                    {{--
+                        <x-nav-link href="{{ route('intro') }}" :active="request()->routeIs('intro')">
+                            {{ __('INTRO') }}
+                        </x-nav-link>
+                    --}}
                     <x-nav-link href="{{ route('lessons', ['lesson' => 'vocal']) }}" :active="request()->is('lessons/vocal') || request()->is('lessons/vocal/*')">
                         {{ __('VOCAL') }}
                     </x-nav-link>
@@ -140,13 +142,15 @@
                 @endif
             </div>
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link href="{{ route('intro') }}" :active="request()->routeIs('intro')">
-                    {{ __('INTRO') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link href="{{ route('lessons', ['lesson' => 'vocal']) }}" :active="request()->routeIs('lessons')">
+                {{--
+                    <x-responsive-nav-link href="{{ route('intro') }}" :active="request()->routeIs('intro')">
+                        {{ __('INTRO') }}
+                    </x-responsive-nav-link>
+                --}}
+                <x-responsive-nav-link href="{{ route('lessons', ['lesson' => 'vocal']) }}" :active="request()->is('lessons/vocal')">
                     {{ __('VOCAL') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link href="{{ route('lessons', ['lesson' => 'dance']) }}" :active="request()->routeIs('lessons')">
+                <x-responsive-nav-link href="{{ route('lessons', ['lesson' => 'dance']) }}" :active="request()->is('lessons/dance')">
                     {{ __('DANCE') }}
                 </x-responsive-nav-link>
                 @auth

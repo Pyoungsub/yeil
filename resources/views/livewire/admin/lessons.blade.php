@@ -47,9 +47,10 @@
                                                     <div class="flex items-center gap-2">
                                                         <h3 class="font-bold text-lg">{{ $group->group_ko }}</h3>
                                                         <button wire:click="modifyGroupModal({{$group->id}})"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="arcs"><polygon points="14 2 18 6 7 17 3 17 3 13 14 2"></polygon><line x1="3" y1="22" x2="21" y2="22"></line></svg></button>
+                                                        <button wire:confirm="{{ $group->group_ko }}를 삭제하시겠습니까?" wire:click="deleteGroup({{$group->id}})"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="arcs"><path d="M3 3h18v18H3zM15 9l-6 6m0-6l6 6"/></svg></button>
                                                     </div>
-                                                    <button class="flex items-center" wire:click="openScheduleModal({{$purpose->id}})">
-                                                        <span>수업추가</span>
+                                                    <button class="flex items-center" wire:click="openAddPartModal({{$group->id}})">
+                                                        <span>반추가</span>
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="arcs"><path d="M3 3h18v18H3zM12 8v8m-4-4h8"/></svg>
                                                     </button>
                                                     <button class="flex items-center" wire:click="openAdditionalPartModal({{$purpose->id}})">
@@ -199,6 +200,39 @@
                 </x-secondary-button>
 
                 <x-button class="ms-3" wire:click="addSchedule" wire:loading.attr="disabled">
+                    {{ __('저장') }}
+                </x-button>
+            </x-slot>
+        </x-dialog-modal>
+        <x-dialog-modal wire:model.live="addPartModal">
+            <x-slot name="title">
+                {{ __('반추가') }}
+            </x-slot>
+
+            <x-slot name="content">
+                <div class="">
+                    <x-label for="part" value="{{ __('URL을 위한 영어로 된 반이름') }}" />
+                    <x-input id="part" wire:model="part" type="text" placeholder="예) audition-a" />
+                </div>
+                <div class="">
+                    <x-label for="part_ko" value="{{ __('반이름') }}" />
+                    <x-input id="part_ko" wire:model="part_ko" type="text" placeholder="예) 오디션 정규반 A" />
+                </div>
+                <div class="">
+                    <x-label for="description" value="{{ __('수업내용') }}" />
+                    <x-input id="description" wire:model="description" type="text" placeholder="예) 보컬개인 주 1회 + 프리패스" />
+                </div>
+                <div class="">
+                    <x-label for="price" value="{{ __('금액') }}" />
+                    <x-input id="price" wire:model="price" type="tel" placeholder="예) 600000" />
+                </div>
+            </x-slot>
+            <x-slot name="footer">
+                <x-secondary-button wire:click="$set('addPartModal', false)" wire:loading.attr="disabled">
+                    {{ __('취소') }}
+                </x-secondary-button>
+
+                <x-button class="ms-3" wire:click="addPart" wire:loading.attr="disabled">
                     {{ __('저장') }}
                 </x-button>
             </x-slot>
