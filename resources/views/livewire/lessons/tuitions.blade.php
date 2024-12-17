@@ -34,7 +34,8 @@
                             </div>
                         @endif
                     @endauth
-                    <x-video source="{{ asset('storage/' . $lesson_tuition_video->video_path) }}" />
+                    <x-square-video source="{{ asset('storage/' . $lesson_tuition_video->video_path) }}" />
+                    {{--<x-video source="{{ asset('storage/' . $lesson_tuition_video->video_path) }}" />--}}
                 </div>
             @endforeach
         </div>

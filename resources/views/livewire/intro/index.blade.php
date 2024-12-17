@@ -1,3 +1,3 @@
-<div>
-    {{-- Success is as dangerous as failure. --}}
+<div class="pt-20">
+    <livewire:audition />
 </div>

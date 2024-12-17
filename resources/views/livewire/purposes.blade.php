@@ -2,42 +2,40 @@
     <script src="//cdn.tiny.cloud/1/azv7v8wsfnzffbw5rgoi2cjx48d2xf1ozpyn5ca41g3f60oj/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 @endpush
 <div class="">
-    {{--
-        <div class="relative">
-            @if($is_admin)
-                <div class="absolute inset-0 z-20 flex items-center justify-center">
-                    <button class="rounded border-2 border-black px-4 py-1 bg-white font-bold" wire:click="modifyBannerYoutube">수정</button>
-                </div>
-            @endif
+    <div class="relative">
+        @if($is_admin)
+            <div class="absolute inset-0 z-20 flex items-center justify-center">
+                <button class="rounded border-2 border-black px-4 py-1 bg-white font-bold" wire:click="modifyBannerYoutube">수정</button>
+            </div>
+        @endif
+        @if ($banner_youtube_link)
+            <x-youtube-banner link="{{ $purpose->purpose_banner_youtube ? $purpose->purpose_banner_youtube->link  :  asset('storage/video/7cf4958d5002916a5141c3b18de475d8.png') }}"></x-youtube-banner>
+        @else
+            <x-mp4 source="/video/7cf4958d5002916a5141c3b18de475d8.mp4" />
+        @endif
+    </div>
+    <x-dialog-modal wire:model.live="bannerYoutubeModal">
+        <x-slot name="title">
+            {{ __('메인영상 관리') }}
+        </x-slot>
+        <x-slot name="content">
+            <x-label for="banner_youtube_link" />
+            <x-input id="banner_youtube_link" type="text" wire:model="banner_youtube_link" placeholder="예시) X7saeqDgq9g" />
             @if ($banner_youtube_link)
-                <x-youtube-banner link="{{ $purpose->purpose_banner_youtube ? $purpose->purpose_banner_youtube->link  :  asset('storage/video/7cf4958d5002916a5141c3b18de475d8.png') }}"></x-youtube-banner>
+                <iframe class="mt-4 rounded-lg w-full aspect-video pointer-events-none" src="https://www.youtube-nocookie.com/embed/{{$banner_youtube_link}}?autoplay=1&mute=1&loop=1&playlist={{$banner_youtube_link}}&controls=0&modestbranding=1&fs=0&rel=0&autohide=1&iv_load_policy=3" frameborder="0"></iframe>
             @else
-                <div class="mt-4 rounded-lg w-full aspect-video bg-gray-200 flex items-center justify-center">영상이 없습니다</div>
+                <div class="mt-4 rounded-lg w-full aspect-video bg-gray-200"></div>
             @endif
-        </div>
-        <x-dialog-modal wire:model.live="bannerYoutubeModal">
-            <x-slot name="title">
-                {{ __('메인영상 관리') }}
-            </x-slot>
-            <x-slot name="content">
-                <x-label for="banner_youtube_link" />
-                <x-input id="banner_youtube_link" type="text" wire:model="banner_youtube_link" placeholder="예시) X7saeqDgq9g" />
-                @if ($banner_youtube_link)
-                    <iframe class="mt-4 rounded-lg w-full aspect-video pointer-events-none" src="https://www.youtube-nocookie.com/embed/{{$banner_youtube_link}}?autoplay=1&mute=1&loop=1&playlist={{$banner_youtube_link}}&controls=0&modestbranding=1&fs=0&rel=0&autohide=1&iv_load_policy=3" frameborder="0"></iframe>
-                @else
-                    <div class="mt-4 rounded-lg w-full aspect-video bg-gray-200"></div>
-                @endif
-            </x-slot>
-            <x-slot name="footer">
-                <x-secondary-button wire:click="$set('bannerYoutubeModal', false)" wire:loading.attr="disabled">
-                    {{ __('Close') }}
-                </x-secondary-button>
-                <x-button class="ms-3" wire:click="saveYoutube" wire:loading.attr="disabled">
-                    {{ __('저장') }}
-                </x-button>
-            </x-slot>
-        </x-dialog-modal>
-    --}}
+        </x-slot>
+        <x-slot name="footer">
+            <x-secondary-button wire:click="$set('bannerYoutubeModal', false)" wire:loading.attr="disabled">
+                {{ __('Close') }}
+            </x-secondary-button>
+            <x-button class="ms-3" wire:click="saveYoutube" wire:loading.attr="disabled">
+                {{ __('저장') }}
+            </x-button>
+        </x-slot>
+    </x-dialog-modal>
     
     <div class="bg-black pt-8">
         <div class="py-12 px-2 max-w-7xl mx-auto">
@@ -513,7 +511,9 @@
                                     </div>
                                 @endif
                             @endauth
-                            <x-video source="{{ $purpose_people_video->video_path }}" />
+                            {{--<x-video source="{{ $purpose_people_video->video_path }}" />--}}
+                            {{--<x-square-video source="{{ $purpose_people_video->video_path }}" />--}}
+                            <x-rectangle-video source="{{ $purpose_people_video->video_path }}" />
                         </div>    
                         <h1 class="mt-4 text-white font-bold">{{ $purpose_people_video->goal }}</h1>
                         <p class="mt-2 text-white font-bold">{{ $purpose_people_video->name }}</p>
@@ -593,7 +593,7 @@
             <h1 class="text-2xl font-semibold relative overflow-hidden after:top-4 after:absolute after:content-[''] after:w-full after:h-0.5 after:bg-black"
             >{{$purpose->purpose_ko}}</h1>
             <div class="mt-4 grid sm:grid-cols-2 lg:flex gap-2">
-                @foreach($purpose->schedules->groupBy('day_id') as $day_id => $schedules)
+                @foreach($purpose->schedules->groupBy('day_id')->sortKeys() as $day_id => $schedules)
                     <div class="flex sm:grid gap-4">
                         <h3 class="p-4 bg-black rounded-lg text-white text-2xl font-semibold">{{ $schedules->first()->day->ko }}</h3>
                         <div class="p-2">
@@ -798,7 +798,9 @@
                                         </div>
                                     @endif
                                 @endauth
-                                <x-video source="{{ $purpose_idol_video->video_path }}" />
+                                {{--<x-video source="{{ $purpose_idol_video->video_path }}" />--}}
+                                <x-rectangle-video source="{{ $purpose_idol_video->video_path }}" />
+                                {{--<x-square-video source="{{ $purpose_idol_video->video_path }}" />--}}
                             </div>
                         @endforeach
                     </div>

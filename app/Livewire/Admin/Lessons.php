@@ -48,7 +48,7 @@ class Lessons extends Component
         }
         else
         {
-            $this->purpose->group()->create([
+            $this->purpose->groups()->create([
                 'group' => $this->group_name,
                 'group_ko' => $this->group_name_ko,
             ]);
