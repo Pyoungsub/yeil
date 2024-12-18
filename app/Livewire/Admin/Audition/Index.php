@@ -1,18 +1,11 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Admin\Audition;
 
-use Livewire\WithFileUploads;
 use Livewire\Component;
-use App\Models\Agency;
-use App\Models\Audition as Au;
-use Livewire\WithoutUrlPagination;
-use Livewire\WithPagination;
 
-class Audition extends Component
+class Index extends Component
 {
-    use WithFileUploads, WithPagination, WithoutUrlPagination; 
-
     public $addAgencyModal;
     public $name;
     public $logoPreview;
@@ -43,33 +36,13 @@ class Audition extends Component
         ]);
         $this->reset(['addAgencyModal', 'name', 'logo', 'bg_color', 'text_color']);
     }
-    public $selected_agency;
-    public $description;
-    public $date;
-    public $addAuditionModal;
-    public function addAudition($id)
-    {
-        $this->reset(['selected_agency', 'description', 'date']);
-        $this->selected_agency = Agency::find($id);
-        $this->addAuditionModal = true;
-    }
-    public function saveAudition()
-    {
-        $this->selected_agency->auditions()->create([
-            'description' => $this->description,
-            'date' => $this->date,
-        ]);
-        $this->reset(['addAuditionModal', 'selected_agency', 'description', 'date']);
-    }
     public function render()
     {
         $currentYear = now()->year;
         $currentMonth = now()->month;
-        $auditions = Au::whereYear('date', $currentYear)
+        $auditions = Audition::whereYear('date', $currentYear)
             ->whereMonth('date', $currentMonth)->with('agency')->paginate(12);
-        return view('livewire.audition', [
-            'agencies' => Agency::paginate(12),
-            'auditions' => $auditions
-        ]);
+        //['auditions' => $auditions]
+        return view('livewire.admin.audition.index');
     }
 }

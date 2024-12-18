@@ -31,5 +31,11 @@ Route::middleware([CheckAdmin::class])->group(function () {
         Route::get('/lessons', Livewire\Admin\Lessons::class)->name('admin.lessons');
         Route::get('/inquiries', Livewire\Admin\Inquiries::class)->name('admin.inquiries');
         Route::get('/schedules', Livewire\Admin\Schedules::class)->name('admin.scheduless');
+        Route::prefix('audition')->group(function (){
+            Route::get('/', Livewire\Admin\Audition\Index::class)->name('admin.audition');
+            Route::get('/add', Livewire\Admin\Audition\Add::class)->name('admin.audition.add');
+        });
+        
+        Route::post('/audition-image', [\App\Http\Controllers\AuditionImageController::class, 'audition'])->name('audition-image');
     });
 });

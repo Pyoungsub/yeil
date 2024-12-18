@@ -4,5 +4,8 @@
         <li>
             <a href="{{route('admin.lessons')}}">사이트관리</a>
         </li>
+        <li>
+            <a href="{{route('admin.audition')}}">오디션관리</a>
+        </li>
     </ul>
 </div>
