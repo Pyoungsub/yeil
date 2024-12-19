@@ -16,6 +16,7 @@ class View extends Component
 
     public function render()
     {
-        return view('livewire.audition.view', ['audition' => $this->audition]);
+        $currentPage = request()->query('page', 1);
+        return view('livewire.audition.view', ['audition' => $this->audition, 'currentPage' => $currentPage]);
     }
 }
