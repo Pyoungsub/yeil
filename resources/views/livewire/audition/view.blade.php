@@ -10,7 +10,7 @@
                         {!! $audition->content !!}
                     </div>
                     <div class="mt-12 flex items-center justify-center">
-                        <a href="{{ route('audition.lists', ['page' => $currentPage]) }}" class=""><span class="text-white font-bold text-xl">오디션 더보기</span></a>
+                        <a href="{{ route('audition.lists') }}" class=""><span class="text-white font-bold text-xl">오디션 더보기</span></a>
                     </div>
                 </div>
             </div>

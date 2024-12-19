@@ -7,9 +7,10 @@
                     <h1 class="text-6xl font-bold text-white">Auditions in Yeil</h1>
                 </div>
             </div>
+            @if(count($auditions)>0)
             <div class="mt-12 grid sm:grid-cols-2 md:grid-cols-3 gap-8 px-2 sm:px-0">
                 @foreach($auditions as $audition)
-                    <a href="{{route('audition', ['id' => $audition->id])}}">
+                    <a href="{{route('audition', ['id' => $audition->id, 'page' => $auditions->currentPage()])}}">
                         <div class="">
                             <div class="aspect-video bg-no-repeat bg-cover bg-center rounded-lg" style="background-image:url({{ asset('storage/'.$audition->thumbnail_path) }})"></div>
                             <div class="text-white mt-4 grid gap-2">
@@ -21,6 +22,9 @@
                     </a>
                 @endforeach
             </div>
+            @endif
+            <div class="mt-4">{{$auditions->links()}}</div>
+            
         </div>
     </div>
     <x-footer.web />
