@@ -8,6 +8,10 @@ Route::get('/', Livewire\Home\Index::class)->name('home');
 Route::get('/lessons/{lesson}', Livewire\Lessons::class)->name('lessons');
 Route::get('lessons/{lesson}/{purpose}', Livewire\Purposes::class)->name('purposes');
 Route::get('/intro', Livewire\Intro\Index::class)->name('intro');
+Route::prefix('audition')->group(function () {
+    Route::get('lists/{id}', Livewire\Audition\Lists::class)->name('audition.lists');
+    Route::get('/{id}', Livewire\Audition\View::class)->name('audition');
+});
 Route::prefix('kakao')->group(function () {
     Route::get('/login', function (){
         session(['url.intended' => url()->previous()]);
