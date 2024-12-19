@@ -16,6 +16,9 @@ return new class extends Migration
             $table->foreignId('agency_id')->cascadeOnDelete();
             $table->string('description');
             $table->date('date');
+            $table->string('img_path');
+            $table->string('thumbnail_path');
+            $table->text('content');
             $table->timestamps();
         });
     }
