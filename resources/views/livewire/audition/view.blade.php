@@ -1,6 +1,8 @@
 <div class="">
     <div class="">
-        {!! $audition->audition_content->content !!}
+        {!! $audition->content !!}
+        {!! $audition->img_path !!}
+        {!! $audition->thumbnail_path !!}
     </div>
 </div>
     

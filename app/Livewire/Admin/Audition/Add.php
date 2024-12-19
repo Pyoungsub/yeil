@@ -23,6 +23,8 @@ class Add extends Component
     public $description;
     public $date;
     public $content;
+    public $img_path;
+    public $thumbnail_path;
     public function saveAudition()
     {
         $validated = $this->validate([ 
@@ -37,13 +39,10 @@ class Add extends Component
         $create_audition = $agency->auditions()->create([
             'description' => $this->description,
             'date' => $this->date,
+            'content' => $this->content,
+            'img_path' => $this->img_path,
+            'thumbnail_path' => $this->thumbnail_path
         ]);
-        if($create_audition)
-        {
-            $create_audition->audition_content()->create([
-                'content' => $this->content
-            ]);
-        }
         $this->reset(['selected_id', 'description', 'date', 'content']);
         return redirect()->route('home');
     }
@@ -72,9 +71,10 @@ class Add extends Component
                         $thumbnail = $thumbnail->scaleDown(width:300);
                         $thumbnail->save('storage/'.$thumbnailPath);
                         $this->thumbnail_path = $thumbnailPath;
+                        $this->img_path = $newPath;
                         $firstImageProcessed = true;
                     }
-                    $this->img_path = $newPath;
+                    
                     // Move the original image
                     Storage::disk('public')->move('tmp/' . $filename, $newPath);
                 }

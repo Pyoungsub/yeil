@@ -11,7 +11,7 @@ class View extends Component
 
     public function mount($id)
     {
-        $this->audition = Audition::with(['agency', 'audition_content'])->find($id);
+        $this->audition = Audition::with('agency')->find($id);
     }
 
     public function render()
