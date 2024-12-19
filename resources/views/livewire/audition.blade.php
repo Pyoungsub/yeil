@@ -1,7 +1,7 @@
 <div class="">
     @if(count($auditions) > 0)
         <div class="max-w-5xl mx-auto px-2 lg:px-0">
-            <h1 class="font-bold py-2 text-2xl">이달의 오디션</h1>
+            <h1 class="font-bold py-2 text-2xl">기획사 오디션</h1>
             <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
                 @foreach($auditions as $audition)
                     <a href="{{ route('audition', ['id' => $audition->id]) }}">
