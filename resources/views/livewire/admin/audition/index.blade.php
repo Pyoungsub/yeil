@@ -1,7 +1,7 @@
 <div class="flex">
     <x-admin.sidebar />
     <div class="pt-12 max-w-7xl mx-auto">
-        <div class="">
+        <div class="pt-8 grid gap-16 divide-y">
             <x-button wire:click="addAgency">기획사 등록</x-button>
             <x-dialog-modal wire:model="addAgencyModal" maxWidth="sm">
                 <x-slot name="title">기획사 등록</x-slot>
@@ -70,11 +70,14 @@
                 </x-slot>
             </x-dialog-modal>
         </div>
-        
-        <div class="pt-8 grid gap-16 divide-y">
-            <div class="">
-                <a href="{{route('admin.audition.add')}}">오디션 추가</a>
+        @if( count($auditions) > 0 )
+            <div class="pt-8 grid grid-cols-6 gap-8">
+                @foreach($auditions as $audition)
+                    <div class="w-32 aspect-square bg-cover bg-no-repeat bg-center" style="background-image:url({{asset('storage/'.$audition->img_path)}})">
+                        <button wire:click="display({{$audition->id}})">{{__('등록')}}</button>
+                    </div>
+                @endforeach
             </div>
-        </div>
+        @endif
     </div>
 </div>

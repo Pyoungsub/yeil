@@ -13,4 +13,8 @@ class Audition extends Model
     {
         return $this->belongsTo(Agency::class);
     }
+    public function display_audition()
+    {
+        return $this->hasOne(DisplayAudition::class);
+    }
 }

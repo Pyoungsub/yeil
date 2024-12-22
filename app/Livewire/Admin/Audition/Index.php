@@ -3,6 +3,8 @@
 namespace App\Livewire\Admin\Audition;
 
 use Livewire\Component;
+use App\Models\Audition;
+use App\Models\DisplayAudition;
 
 class Index extends Component
 {
@@ -36,13 +38,21 @@ class Index extends Component
         ]);
         $this->reset(['addAgencyModal', 'name', 'logo', 'bg_color', 'text_color']);
     }
+    public function display($id)
+    {
+        $tasks = DisplayAudition::orderBy('order')->get();
+        foreach ($tasks as $index => $task) {
+            $task->update(['order' => $index + 2]); // Start from 2 to leave space for the new row
+        }
+        $task = DisplayAudition::firstOrCreate([
+            'audition_id' => $id,
+            'order' => 1
+        ]);
+    }
     public function render()
     {
-        $currentYear = now()->year;
-        $currentMonth = now()->month;
-        $auditions = Audition::whereYear('date', $currentYear)
-            ->whereMonth('date', $currentMonth)->with('agency')->paginate(12);
-        //['auditions' => $auditions]
-        return view('livewire.admin.audition.index');
+        $display_auditions = DisplayAudition::with('audition.agency')->orderBy('order')->get();
+        $auditions = Audition::with('agency')->doesntHave('display_audition')->paginate(12);
+        return view('livewire.admin.audition.index', ['display_auditions' => $display_auditions, 'auditions' =>$auditions]);
     }
 }

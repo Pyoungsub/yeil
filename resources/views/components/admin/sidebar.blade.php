@@ -6,6 +6,9 @@
         </li>
         <li>
             <a href="{{route('admin.audition')}}">오디션관리</a>
+            <ul>
+                <li><a href="{{route('admin.audition.add')}}">-오디션등록</a></li>
+            </ul>
         </li>
     </ul>
 </div>

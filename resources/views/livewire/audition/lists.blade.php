@@ -8,20 +8,20 @@
                 </div>
             </div>
             @if(count($auditions)>0)
-            <div class="mt-12 grid sm:grid-cols-2 md:grid-cols-3 gap-8 px-2 sm:px-0">
-                @foreach($auditions as $audition)
-                    <a href="{{route('audition', ['id' => $audition->id, 'page' => $auditions->currentPage()])}}">
-                        <div class="">
-                            <div class="aspect-video bg-no-repeat bg-cover bg-center rounded-lg" style="background-image:url({{ asset('storage/'.$audition->thumbnail_path) }})"></div>
-                            <div class="text-white mt-4 grid gap-2">
-                                <h1 class="text-3xl">{{$audition->agency->name}}</h1>
-                                <h1 class="text-2xl md:text-5xl font-bold">{{ $audition->description }}</h1>
-                                <h2 class="text-xl font-bold">오디션 날짜: {{ \Carbon\Carbon::parse($audition->date)->format('Y-m-d H:i') }}</h2>
+                <div class="mt-12 grid sm:grid-cols-2 md:grid-cols-3 gap-8 px-2 sm:px-0">
+                    @foreach($auditions as $audition)
+                        <a href="{{route('audition', ['id' => $audition->id, 'page' => $auditions->currentPage()])}}">
+                            <div class="">
+                                <div class="aspect-video bg-no-repeat bg-cover bg-center rounded-lg" style="background-image:url({{ asset('storage/'.$audition->thumbnail_path) }})"></div>
+                                <div class="text-white mt-4 grid gap-2">
+                                    <h1 class="text-3xl">{{$audition->agency->name}}</h1>
+                                    <h1 class="text-2xl md:text-5xl font-bold">{{ $audition->description }}</h1>
+                                    <h2 class="text-xl font-bold">오디션 날짜: {{ \Carbon\Carbon::parse($audition->date)->format('Y-m-d H:i') }}</h2>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                @endforeach
-            </div>
+                        </a>
+                    @endforeach
+                </div>
             @endif
             <div class="mt-4">{{$auditions->links()}}</div>
             
