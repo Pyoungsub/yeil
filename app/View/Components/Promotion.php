@@ -16,7 +16,7 @@ class Promotion extends Component
     public function __construct()
     {
         //
-        $this->promotions = Pro::orderBy('created_at', 'desc')->take(3)->get();;
+        $this->promotions = Pro::orderBy('created_at', 'desc')->take(8)->get();;
     }
 
     /**
