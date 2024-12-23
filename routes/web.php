@@ -12,6 +12,10 @@ Route::prefix('audition')->group(function () {
     Route::get('lists', Livewire\Audition\Lists::class)->name('audition.lists');
     Route::get('/{id}', Livewire\Audition\View::class)->name('audition');
 });
+Route::prefix('promotion')->group(function () {
+    Route::get('lists', Livewire\Promotion\Lists::class)->name('promotion.lists');
+    Route::get('/{id}', Livewire\Promotion\View::class)->name('promotion');
+});
 Route::prefix('kakao')->group(function () {
     Route::get('/login', function (){
         session(['url.intended' => url()->previous()]);
@@ -39,7 +43,12 @@ Route::middleware([CheckAdmin::class])->group(function () {
             Route::get('/', Livewire\Admin\Audition\Index::class)->name('admin.audition');
             Route::get('/add', Livewire\Admin\Audition\Add::class)->name('admin.audition.add');
         });
+        Route::prefix('promotion')->group(function (){
+            Route::get('/', Livewire\Admin\Promotion\Index::class)->name('admin.promotion');
+            Route::get('/add', Livewire\Admin\Promotion\Add::class)->name('admin.promotion.add');
+        });
         
         Route::post('/audition-image', [\App\Http\Controllers\AuditionImageController::class, 'audition'])->name('audition-image');
+        Route::post('/promotion-image', [\App\Http\Controllers\AuditionImageController::class, 'promotion'])->name('promotion-image');
     });
 });

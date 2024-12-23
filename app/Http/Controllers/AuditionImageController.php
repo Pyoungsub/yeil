@@ -31,4 +31,21 @@ class AuditionImageController extends Controller
             return response()->json(['link' => $path]);
         }
     }
+    public function promotion(Request $request)
+    {
+        $validation = $request->validate([
+            'file' => 'file|mimes:jpeg,jpg,bmp,png',
+        ]);
+        if($request->hasfile('file'))
+        {
+            $extension = $request->file('file')->getClientOriginalExtension();
+            $fileName = date('ymd') . uniqid() . '.' . $extension;
+            $manager = new ImageManager(new Driver());
+            $image = $manager->read($request->file('file'));
+            $image = $image->scaleDown(width:800);
+            $image->save(base_path('public/storage/tmp/' . $fileName));
+            $path = asset('storage/tmp/' . $fileName);
+            return response()->json(['link' => $path]);
+        }
+    }
 }

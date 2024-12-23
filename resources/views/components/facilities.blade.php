@@ -27,17 +27,3 @@
         <div class="swiper-pagination"></div>
     </div>
 </div>
-<style>
-
-    /* Change the color of the active pagination dot */
-    .swiper-pagination-bullet-active {
-        background-color: #fff !important;
-    }
-
-    /* Example to adjust the size of the pagination dots */
-    .swiper-pagination-bullet {
-        width: 12px;
-        height: 12px;
-        margin: 0 12px; /* Custom margin for spacing */
-    }
-</style>

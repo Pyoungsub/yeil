@@ -8,6 +8,15 @@
 [x-cloak] {
     display: none;
 }
+
+.swiper-pagination-bullet-active {
+    background-color: #fff !important;
+}
+.swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+    margin: 0 12px; /* Custom margin for spacing */
+}
 @layer base {
     @font-face {
         font-family: 'AppleSDGothicNeo';
