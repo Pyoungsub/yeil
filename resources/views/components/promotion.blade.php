@@ -41,7 +41,7 @@
                 <div class="swiper-wrapper">
                     @foreach($promotions as $promotion)
                         <div class="swiper-slide">
-                            <a href="{{route('audition', ['id' => $promotion->id])}}">
+                            <a href="{{route('promotion', ['id' => $promotion->id])}}">
                                 <div class="relative w-full aspect-square rounded-xl">
                                     <h2 class="absolute top-4 left-0 text-2xl font-bold bg-black/30 text-white rounded-sm px-1"></h2>
                                     <div class="rounded-lg mt-4 divide-y divide-gray-100 w-full h-full bg-cover bg-no-repeat bg-center p-8bg-cover bg-no-repeat bg-center p-8" style="background-image:url({{asset('storage/'.$promotion->img_path)}})"></div>
