@@ -12,7 +12,7 @@
                     @foreach($promotions as $promotion)
                         <a href="{{route('promotion', ['id' => $promotion->id, 'page' => $promotions->currentPage()])}}">
                             <div class="">
-                                <div class="aspect-video bg-no-repeat bg-cover bg-center rounded-lg" style="background-image:url({{ asset('storage/'.$promotion->thumbnail_path) }})"></div>
+                                <div class="aspect-square bg-no-repeat bg-cover bg-center rounded-lg" style="background-image:url({{ asset('storage/'.$promotion->thumbnail_path) }})"></div>
                                 <div class="text-white mt-4 grid gap-2">
                                     <h1 class="text-2xl md:text-5xl font-bold">{{ $promotion->title }}</h1>
                                 </div>
