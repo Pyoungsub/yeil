@@ -22,7 +22,6 @@
                 </div>
             @endif
             <div class="mt-4">{{$promotions->links()}}</div>
-            
         </div>
     </div>
     <x-footer.web />

@@ -1,6 +1,19 @@
 <div class="flex">
     <x-admin.sidebar />
     <div class="pt-12 max-w-7xl mx-auto">
+        @if(count($agencies)>0)
+            <div class="">
+                <h1>기획사 목록</h1>
+                <div class="grid grid-cols-3 gap-4">
+                    @foreach($agencies as $agency)
+                        <div class="p-2 rounded-lg flex items-center" style="background-color:{{$agency->bg_color}};">
+                            <!--div class="py-12 bg-cover bg-no-repeat bg-center w-full h-auto p-2 mx-auto" style="background-image:url({{asset('storage/'. $agency->logo_path)}});"></div-->
+                            <img src="{{asset('storage/'. $agency->logo_path)}}" class="max-w-40 mx-auto" />
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        @endif
         <div class="pt-8 grid gap-16 divide-y">
             <x-button wire:click="addAgency">기획사 등록</x-button>
             <x-dialog-modal wire:model="addAgencyModal" maxWidth="sm">
@@ -75,6 +88,17 @@
                 @foreach($auditions as $audition)
                     <div class="w-32 aspect-square bg-cover bg-no-repeat bg-center" style="background-image:url({{asset('storage/'.$audition->img_path)}})">
                         <button wire:click="display({{$audition->id}})">{{__('등록')}}</button>
+                        <button type="button">{{__('삭제')}}</button>
+                    </div>
+                @endforeach
+            </div>
+        @endif
+        @if(count($display_auditions) > 0)
+            <div class="">
+                @foreach($display_auditions as $display_audition)
+                    <div class="">
+                        <button wire:click="deleteDisplay({{$display_audition->id}})">삭제</button>
+                        {{$display_audition->audition->description}}
                     </div>
                 @endforeach
             </div>

@@ -1,4 +1,4 @@
-<div class="">
+<div class="bg-gray-100">
     @if(count ($promotions) > 0 )
         <div class="pt-12 pb-4 px-2 max-w-5xl mx-auto"
             x-data="{swiper:null}"

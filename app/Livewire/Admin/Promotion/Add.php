@@ -4,9 +4,6 @@ namespace App\Livewire\Admin\Promotion;
 
 use Livewire\Component;
 use App\Models\Promotion;
-use Livewire\WithFileUploads;
-use Livewire\WithoutUrlPagination;
-use Livewire\WithPagination;
 
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -15,7 +12,6 @@ use Illuminate\Support\Facades\Storage;
 
 class Add extends Component
 {
-    use WithFileUploads, WithPagination, WithoutUrlPagination;
     public $title;
     public $content;
     public $img_path;

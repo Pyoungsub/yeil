@@ -42,10 +42,12 @@ Route::middleware([CheckAdmin::class])->group(function () {
         Route::prefix('audition')->group(function (){
             Route::get('/', Livewire\Admin\Audition\Index::class)->name('admin.audition');
             Route::get('/add', Livewire\Admin\Audition\Add::class)->name('admin.audition.add');
+            Route::get('/modify/{id}', Livewire\Admin\Audition\Modify::class)->name('admin.audition.modify');
         });
         Route::prefix('promotion')->group(function (){
             Route::get('/', Livewire\Admin\Promotion\Index::class)->name('admin.promotion');
             Route::get('/add', Livewire\Admin\Promotion\Add::class)->name('admin.promotion.add');
+            Route::get('/modify/{id}', Livewire\Admin\Promotion\Modify::class)->name('admin.promotion.modify');
         });
         
         Route::post('/audition-image', [\App\Http\Controllers\AuditionImageController::class, 'audition'])->name('audition-image');

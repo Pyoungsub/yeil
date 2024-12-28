@@ -78,7 +78,9 @@ $maxWidth = [
         }).on('froalaEditor.image.error', function (e, editor, error, response){
             console.log(error);
         });
+        $('#{{ $id }}').froalaEditor('html.set', @this.get('{{$model}}'));
     });
+    /*
     // Listen for the Livewire event to insert the image
     document.addEventListener('livewire:init', function () {
         // Listen for the 'my-event' dispatched from Livewire
@@ -90,4 +92,6 @@ $maxWidth = [
             }
         });
     });
+    */
+    
 </script>

@@ -16,6 +16,7 @@
     width: 12px;
     height: 12px;
     margin: 0 12px; /* Custom margin for spacing */
+    background-color:#fff;
 }
 @layer base {
     @font-face {

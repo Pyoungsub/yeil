@@ -1,50 +1,47 @@
 <?php
 
-namespace App\Livewire\Admin\Audition;
+namespace App\Livewire\Admin\Promotion;
 
 use Livewire\Component;
 
-use App\Models\Agency;
-use App\Models\Audition;
-use Livewire\WithFileUploads;
-use Livewire\WithoutUrlPagination;
-use Livewire\WithPagination;
+use App\Models\Promotion;
 
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 
-class Add extends Component
+class Modify extends Component
 {
-    use WithFileUploads, WithPagination, WithoutUrlPagination;
-    public $agencies;
+    public $promotion;
     public $selected_id;
-    public $description;
-    public $date;
+    public $title;
     public $content;
     public $img_path;
     public $thumbnail_path;
-    public function saveAudition()
+    public function savePromotion()
     {
         $validated = $this->validate([ 
             'selected_id' => 'required',
-            'description' => 'required|min:3',
-            'date' => 'required',
+            'title' => 'required|min:3',
             'content' => 'required|min:3',
         ]);
         $this->content = $this->moveImageAndUpdateContent($this->content);
-        $agency = Agency::find($this->selected_id);
-
-        $create_audition = $agency->auditions()->create([
-            'description' => $this->description,
-            'date' => $this->date,
+        $updateData = [
+            'title' => $this->title,
             'content' => $this->content,
-            'img_path' => $this->img_path,
-            'thumbnail_path' => $this->thumbnail_path
-        ]);
-        $this->reset(['selected_id', 'description', 'date', 'content']);
-        return redirect()->route('admin.audition');
+        ];
+        
+        if ($this->img_path) {
+            $updateData['img_path'] = $this->img_path;
+        }
+        
+        if ($this->thumbnail_path) {
+            $updateData['thumbnail_path'] = $this->thumbnail_path;
+        }
+        $this->promotion->update($updateData);
+        $this->reset(['selected_id', 'title', 'content', 'img_path', 'thumbnail_path']);
+        return redirect()->route('admin.promotion');
     }
     public function moveImageAndUpdateContent($content)
     {
@@ -59,13 +56,13 @@ class Add extends Component
                 // 2. Get the image file name
                 $filename = basename($imagePath);
                 // Define paths with `yymm` structure
-                $newPath = "auditions/{$yymmFolder}/" . $filename;
-                $thumbnailPath = "auditions/{$yymmFolder}/thumbnails/" . $filename;
+                $newPath = "promotions/{$yymmFolder}/" . $filename;
+                $thumbnailPath = "promotions/{$yymmFolder}/thumbnails/" . $filename;
                 // 3. Move the file from tmp to the images folder
                 if (Storage::disk('public')->exists('tmp/' . $filename)) {
                     if($firstImageProcessed == false)
                     {
-                        Storage::disk('public')->makeDirectory("auditions/{$yymmFolder}/thumbnails");
+                        Storage::disk('public')->makeDirectory("promotions/{$yymmFolder}/thumbnails");
                         $manager = new ImageManager(Driver::class);
                         $thumbnail = $manager->read('storage/tmp/' . $filename);
                         $thumbnail = $thumbnail->scaleDown(width:300);
@@ -87,12 +84,15 @@ class Add extends Component
         // 5. Return or save the updated content
         return $content;
     }
-    public function mount()
+    public function mount($id)
     {
-        $this->agencies = Agency::all();
+        $this->promotion = Promotion::find($id);
+        $this->selected_id = $this->promotion->agency_id;
+        $this->title = $this->promotion->title;
+        $this->content = $this->promotion->content;
     }
     public function render()
     {
-        return view('livewire.admin.audition.add');
+        return view('livewire.admin.promotion.modify');
     }
 }

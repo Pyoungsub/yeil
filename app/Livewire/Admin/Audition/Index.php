@@ -5,9 +5,11 @@ namespace App\Livewire\Admin\Audition;
 use Livewire\Component;
 use App\Models\Audition;
 use App\Models\DisplayAudition;
-
+use App\Models\Agency;
+use Livewire\WithFileUploads;
 class Index extends Component
 {
+    use WithFileUploads;
     public $addAgencyModal;
     public $name;
     public $logoPreview;
@@ -49,10 +51,21 @@ class Index extends Component
             'order' => 1
         ]);
     }
+    public function deleteDisplay($id)
+    {
+        DisplayAudition::find($id)->delete();
+        DisplayAudition::orderBy('order', 'asc')
+        ->get()
+        ->each(function ($item, $index) {
+            $item->order = $index + 1;
+            $item->save();
+        });
+    }
     public function render()
     {
+        $agencies = Agency::paginate(12);
         $display_auditions = DisplayAudition::with('audition.agency')->orderBy('order')->get();
         $auditions = Audition::with('agency')->doesntHave('display_audition')->paginate(12);
-        return view('livewire.admin.audition.index', ['display_auditions' => $display_auditions, 'auditions' =>$auditions]);
+        return view('livewire.admin.audition.index', ['agencies' => $agencies, 'display_auditions' => $display_auditions, 'auditions' =>$auditions]);
     }
 }

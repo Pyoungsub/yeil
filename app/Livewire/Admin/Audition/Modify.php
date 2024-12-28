@@ -6,18 +6,15 @@ use Livewire\Component;
 
 use App\Models\Agency;
 use App\Models\Audition;
-use Livewire\WithFileUploads;
-use Livewire\WithoutUrlPagination;
-use Livewire\WithPagination;
 
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 
-class Add extends Component
+class Modify extends Component
 {
-    use WithFileUploads, WithPagination, WithoutUrlPagination;
+    public $audition;
     public $agencies;
     public $selected_id;
     public $description;
@@ -34,16 +31,21 @@ class Add extends Component
             'content' => 'required|min:3',
         ]);
         $this->content = $this->moveImageAndUpdateContent($this->content);
-        $agency = Agency::find($this->selected_id);
-
-        $create_audition = $agency->auditions()->create([
+        $updateData = [
             'description' => $this->description,
             'date' => $this->date,
             'content' => $this->content,
-            'img_path' => $this->img_path,
-            'thumbnail_path' => $this->thumbnail_path
-        ]);
-        $this->reset(['selected_id', 'description', 'date', 'content']);
+        ];
+        
+        if ($this->img_path) {
+            $updateData['img_path'] = $this->img_path;
+        }
+        
+        if ($this->thumbnail_path) {
+            $updateData['thumbnail_path'] = $this->thumbnail_path;
+        }
+        $this->audition->update($updateData);
+        $this->reset(['selected_id', 'description', 'date', 'content', 'img_path', 'thumbnail_path']);
         return redirect()->route('admin.audition');
     }
     public function moveImageAndUpdateContent($content)
@@ -87,12 +89,17 @@ class Add extends Component
         // 5. Return or save the updated content
         return $content;
     }
-    public function mount()
+    public function mount($id)
     {
         $this->agencies = Agency::all();
+        $this->audition = Audition::find($id);
+        $this->selected_id = $this->audition->agency_id;
+        $this->description = $this->audition->description;
+        $this->date = $this->audition->date;
+        $this->content = $this->audition->content;
     }
     public function render()
     {
-        return view('livewire.admin.audition.add');
+        return view('livewire.admin.audition.modify');
     }
 }
