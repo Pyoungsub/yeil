@@ -36,7 +36,10 @@
                 });
             "
         >
-            <h1 class="font-bold py-2 text-2xl text-white">기획사 오디션</h1>
+            <div class="flex items-center gap-4">
+                <h1 class="font-bold py-2 text-2xl text-white">기획사 오디션</h1>
+                <a href="{{route('audition.lists')}}" class="text-white font-bold stroke-white">더보기<svg class="inline-flex" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="butt" stroke-linejoin="arcs"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></a>
+            </div>
             <div x-ref="container" class="swiper w-full overflow-hidden">
                 <div class="swiper-wrapper">
                     @foreach($auditions as $audition)
@@ -47,7 +50,7 @@
                                     <div class="rounded-lg mt-4 divide-y divide-gray-100 w-full h-full bg-cover bg-no-repeat bg-center p-8bg-cover bg-no-repeat bg-center p-8" style="background-image:url({{asset('storage/'.$audition->audition->thumbnail_path)}})"></div>
                                 </div>
                                 <a href="{{route('audition', ['id' => $audition->audition->id])}}" class="">
-                                    <button class="mt-4 bg-indigo-600 text-white text-sm leading-6 font-medium py-2 px-3 rounded-lg">더 알아보기</button>
+                                    <button class="mt-4 bg-indigo-600 text-white text-sm leading-6 font-medium py-2 px-3 rounded-lg">지원하기</button>
                                 </a>
                             </div>
                         </div>

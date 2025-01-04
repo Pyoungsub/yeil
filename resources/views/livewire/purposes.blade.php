@@ -1,5 +1,5 @@
 @push('scripts')
-    <script src="//cdn.tiny.cloud/1/azv7v8wsfnzffbw5rgoi2cjx48d2xf1ozpyn5ca41g3f60oj/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="//cdn.tiny.cloud/1/mn37b7osy35qr0kk1f8sptgd7rx0avbo4bo7m5pg0tzuilvw/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 @endpush
 <div class="">
     <div class="relative">
@@ -264,8 +264,8 @@
                 x-init="
                     tinymce.init({
                         selector: 'textarea#sub_title',
-                        plugins: 'lists link table code media wordcount',
-                        toolbar: 'undo redo | formatselect | forecolor backcolor | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
+                        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+                        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
                         readonly: false,
                         setup: (editor) => {
                             editor.on('change keyup', () => {
@@ -408,9 +408,18 @@
                 </div>
             </div>
         @endif
+        @if($lesson->lesson === 'dance' && $purpose->purpose === 'pastime')
+            <div class="px-2 sm:px-0">
+                <a href="https://naver.me/Gct7xgG1" target="_blank" style="background-color:#2DB400;border-color:#2DB400" class="py-3 text-center border rounded text-white block max-w-5xl mx-auto flex items-center justify-center gap-4">
+                    <img src="{{asset('storage/company/naver.png')}}" alt="" class="w-12">
+                    무료체험 신청하기
+                </a>
+            </div>
+        @endif
     </div>
+    
     <div class="bg-black py-12">
-        <div class=" px-2 max-w-7xl mx-auto">
+        <div class="px-2 max-w-7xl mx-auto">
             <div class="flex items-center gap-2">
                 @if(count($purpose->purpose_people_youtubes) > 0)
                     <h1 class="text-2xl font-semibold text-white">{{ $purpose->purpose_people_introduce ? $purpose->purpose_people_introduce->title : '예일 합격자 소개' }}</h1>

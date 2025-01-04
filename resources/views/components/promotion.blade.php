@@ -1,3 +1,4 @@
+{{--
 <div class="bg-gray-100">
     @if(count ($promotions) > 0 )
         <div class="pt-12 pb-4 px-2 max-w-5xl mx-auto"
@@ -36,7 +37,10 @@
                 });
             "
         >
-            <h1 class="text-2xl font-bold">예일 이벤트</h1>
+            <div class="flex items-center gap-4">
+                <h1 class="text-2xl font-bold">예일 이벤트</h1>
+                <a href="{{route('promotion.lists')}}" class="font-bold">더보기<svg class="inline-flex" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="3" stroke-linecap="butt" stroke-linejoin="arcs"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></a>
+            </div>
             <div x-ref="container" class="swiper w-full overflow-hidden">
                 <div class="swiper-wrapper">
                     @foreach($promotions as $promotion)
@@ -54,4 +58,16 @@
             </div>
         </div>
     @endif
+</div>
+--}}
+<div class="py-8 max-w-5xl mx-auto p-2">
+    <div class="flex items-center gap-4">
+        <h1 class="text-2xl font-bold">예일 이벤트</h1>
+        <a href="{{route('promotion.lists')}}" class="font-bold">더보기<svg class="inline-flex" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="3" stroke-linecap="butt" stroke-linejoin="arcs"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></a>
+    </div>
+    <div class="mt-8 grid sm:grid-cols-3 gap-8">
+        @foreach($promotions as $promotion)
+            <div class="relative overflow-hidden rounded-2xl border w-full aspect-square bg-cover bg-no-repeat bg-center p-8 text-white" style="background-image:url({{asset('storage/'.$promotion->img_path)}})"></div>
+        @endforeach
+    </div>
 </div>
