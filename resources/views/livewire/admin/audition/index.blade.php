@@ -2,15 +2,19 @@
     <x-admin.sidebar />
     <div class="pt-12 max-w-7xl mx-auto">
         @if(count($agencies)>0)
-            <div class="">
+            <div class="" wire:ignore>
                 <h1>기획사 목록</h1>
                 <div class="grid grid-cols-3 gap-4">
                     @foreach($agencies as $agency)
-                        <div class="p-2 rounded-lg flex items-center" style="background-color:{{$agency->bg_color}};">
+                        <div class="relative p-2 rounded-lg flex items-center" style="background-color:{{$agency->bg_color}};" wire:key="{{$agency->id}}">
                             <!--div class="py-12 bg-cover bg-no-repeat bg-center w-full h-auto p-2 mx-auto" style="background-image:url({{asset('storage/'. $agency->logo_path)}});"></div-->
                             <img src="{{asset('storage/'. $agency->logo_path)}}" class="max-w-40 mx-auto" />
+                            <button wire:click="modify({{$agency->id}})" class="absolute top-2 right-2 border bg-white rounded-lg px-2 py-0">수정</button>
                         </div>
                     @endforeach
+                </div>
+                <div class="">
+                    {{$agencies->links()}}
                 </div>
             </div>
         @endif
@@ -96,9 +100,10 @@
         @if(count($display_auditions) > 0)
             <div class="">
                 @foreach($display_auditions as $display_audition)
-                    <div class="">
+                    <div class="flex items-center gap-2">
                         <button wire:click="deleteDisplay({{$display_audition->id}})">삭제</button>
-                        {{$display_audition->audition->description}}
+                        <p>{{$display_audition->audition->date}}</p>
+                        <p>{{$display_audition->audition->description}}</p>
                     </div>
                 @endforeach
             </div>

@@ -410,7 +410,7 @@
         @endif
         @if($lesson->lesson === 'dance' && $purpose->purpose === 'pastime')
             <div class="px-2 sm:px-0">
-                <a href="https://naver.me/Gct7xgG1" target="_blank" style="background-color:#2DB400;border-color:#2DB400" class="py-3 text-center border rounded text-white block max-w-5xl mx-auto flex items-center justify-center gap-4">
+                <a href="https://m.booking.naver.com/booking/6/bizes/1183922?area=pll&lang=ko&theme=place" target="_blank" style="background-color:#2DB400;border-color:#2DB400" class="py-3 text-center border rounded text-white block max-w-5xl mx-auto flex items-center justify-center gap-4">
                     <img src="{{asset('storage/company/naver.png')}}" alt="" class="w-12">
                     무료체험 신청하기
                 </a>

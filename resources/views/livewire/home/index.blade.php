@@ -4,7 +4,11 @@
     <livewire:courses />
     <livewire:audition />
     <x-promotion />
-    <x-facilities />
+    @if(auth()->user()?->admin)
+        <livewire:facilities />
+    @else
+        <x-facilities />
+    @endif
     <x-instagram />
     <livewire:components.apply />
     <livewire:components.inquiries />

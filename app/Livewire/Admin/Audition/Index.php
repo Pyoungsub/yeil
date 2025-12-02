@@ -7,10 +7,12 @@ use App\Models\Audition;
 use App\Models\DisplayAudition;
 use App\Models\Agency;
 use Livewire\WithFileUploads;
+use Carbon\Carbon;
 class Index extends Component
 {
     use WithFileUploads;
     public $addAgencyModal;
+    public $selected_agency;
     public $name;
     public $logoPreview;
     public $logo;
@@ -25,20 +27,49 @@ class Index extends Component
     }
     public function saveAgency()
     {
-        $validated = $this->validate([ 
-            'name' => 'required|min:1|unique:agencies,name',
-            'logo' => 'required|image',
-            'bg_color' => 'required|hex_color',
-            'text_color' => 'required|hex_color',
+        // Validate the input
+        $validated = $this->validate([
+            'name' => ['required', 'min:1', 'unique:agencies,name,' . optional($this->selected_agency)->id],
+            'logo' => ['required_without:selected_agency', 'nullable', 'image', 'max:1024'],
+            'bg_color' => ['required', 'regex:/^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$/'],
+            'text_color' => ['required', 'regex:/^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$/'],
         ]);
-        $path = $this->logo->storePublicly('logos', 'public');
-        Agency::create([
-            'name' => $this->name,
-            'logo_path' => $path,
-            'bg_color' => $this->bg_color,
-            'text_color' => $this->text_color
-        ]);
+
+        // Update existing agency
+        if ($this->selected_agency) {
+            if ($this->logo) {
+                Storage::disk('public')->delete($this->selected_agency->logo_path);
+                $path = $this->logo->storePublicly('logos', 'public');
+                $this->selected_agency->logo_path = $path;
+            }
+            $this->selected_agency->update([
+                'name' => $this->name,
+                'bg_color' => $this->bg_color,
+                'text_color' => $this->text_color,
+            ]);
+        }
+        else {
+            $path = $this->logo->storePublicly('logos', 'public');
+            Agency::create([
+                'name' => $this->name,
+                'logo_path' => $path,
+                'bg_color' => $this->bg_color,
+                'text_color' => $this->text_color,
+            ]);
+        }
+
+        // Reset form fields and close the modal
         $this->reset(['addAgencyModal', 'name', 'logo', 'bg_color', 'text_color']);
+    }
+    public function modify($id)
+    {
+        $this->reset(['selected_agency', 'name', 'logo', 'logo_path', 'bg_color', 'text_color']);
+        $this->selected_agency = Agency::find($id);
+        $this->name = $this->selected_agency->name;
+        $this->logo_path = $this->selected_agency->logo_path;
+        $this->bg_color = $this->selected_agency->bg_color;
+        $this->text_color = $this->selected_agency->text_color;
+        $this->addAgencyModal = true;
     }
     public function display($id)
     {

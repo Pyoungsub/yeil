@@ -65,6 +65,7 @@ $maxWidth = [
                 'Times New Roman,Times,serif,-webkit-standard': 'Times New Roman',
                 'Verdana,Geneva,sans-serif': 'Verdana'
             },
+            toolbarSticky: false,
             htmlAllowedStyleProps: ['font-family', 'font-size', 'background', 'color', 'width', 'height', 'text-align', 'vertical-align', 'background-color']
         }).on('froalaEditor.focus', function (e, editor, error, response){
             oldcontent = editor.html.get();

@@ -4,6 +4,9 @@ namespace App\Livewire\Promotion;
 
 use Livewire\Component;
 use App\Models\Promotion;
+
+use Illuminate\Support\Facades\Storage;
+
 class View extends Component
 {
     public $promotion;

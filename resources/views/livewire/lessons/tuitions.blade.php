@@ -6,21 +6,43 @@
                 @if(auth()->user()->admin)
                     <button wire:click="add" class="relative border border-white text-white rounded px-2 z-10">추가</button>
                     <!--button wire:click="addYoutube" class="relative border border-white text-white rounded px-2 z-10">유투브영상추가</button-->
-                    <button wire:click="addVideo" class="relative border border-white text-white rounded px-2 z-10">강사진영상추가</button>
+                    <!--button wire:click="addVideo" class="relative border border-white text-white rounded px-2 z-10">강사진영상추가</button-->
                 @endif
             @endauth
         </div>
         <div class="mt-8 grid sm:grid-cols-3 gap-8">
             @foreach($lesson->lesson_tuition_photos as $tuition)
-                <div class="relative overflow-hidden rounded-2xl border w-full aspect-square bg-cover bg-no-repeat bg-center p-8 text-white" style="background-image:url({{ $tuition->img_path ? asset('storage/'.$tuition->img_path ) :  asset('storage/company/7cf4958d5002916a5141c3b18de475d8.png') }}" loading="lazy">
-                    <!--div class="absolute inset-0 bg-black bg-opacity-50 z-0"></div-->
-                    @auth
-                        @if(auth()->user()->admin)
-                            <button wire:click="modify({{ $tuition->id }})" class="relative border border-white text-white rounded px-2 z-10">수정</button>
-                            <button wire:click="delete({{ $tuition->id }})" class="relative border border-white text-white rounded px-2 z-10">삭제</button>
-                        @endif
-                    @endauth
-                </div>
+                @auth
+                    @if(auth()->user()->admin)
+                        <!-- Render as a <div> for admin users -->
+                        <div class="relative overflow-hidden rounded-2xl border w-full aspect-square bg-cover bg-no-repeat bg-center p-8 text-white"
+                            style="background-image:url({{ $tuition->img_path ? asset('storage/'.$tuition->img_path ) : asset('storage/company/7cf4958d5002916a5141c3b18de475d8.png') }}" loading="lazy">
+                            <div class="flex justify-between w-full z-10">
+                                <div>
+                                    <button wire:click.stop="modify({{ $tuition->id }})" class="relative border border-white text-white rounded px-2 z-10">수정</button>
+                                    <button wire:click.stop="delete({{ $tuition->id }})" class="relative border border-white text-white rounded px-2 z-10">삭제</button>
+                                </div>
+                                <div>
+                                    <button wire:click.stop="addYoutube({{ $tuition->id }})" class="relative border border-white text-white rounded px-2 z-10">Youtube</button>
+                                </div>
+                            </div>
+                            @if($tuition->lesson_tuition_photo_url)
+                                <div class="mt-4">
+                                    <p>{{ $tuition->lesson_tuition_photo_url->link }}</p>
+                                    <button wire:click.stop="deleteYoutube({{ $tuition->id }})" class="relative border border-white text-white rounded px-2 z-10">Youtube 링크 삭제</button>
+                                </div>
+                            @endif
+                        </div>
+                    @else
+                        <!-- Render as a <a> for non-admin users -->
+                        <a href="{{ $tuition->lesson_tuition_photo_url ? $tuition->lesson_tuition_photo_url->link : '#' }}" target="_blank" class="relative overflow-hidden rounded-2xl border w-full aspect-square bg-cover bg-no-repeat bg-center p-8 text-white" style="background-image:url({{ $tuition->img_path ? asset('storage/'.$tuition->img_path ) : asset('storage/company/7cf4958d5002916a5141c3b18de475d8.png') }}" loading="lazy"></a>
+                    @endif
+                @endauth
+
+                @guest
+                    <!-- Render as a <a> for guests -->
+                    <a href="{{ $tuition->lesson_tuition_photo_url ? $tuition->lesson_tuition_photo_url->link : '#' }}" target="_blank" class="relative overflow-hidden rounded-2xl border w-full aspect-square bg-cover bg-no-repeat bg-center p-8 text-white" style="background-image:url({{ $tuition->img_path ? asset('storage/'.$tuition->img_path ) : asset('storage/company/7cf4958d5002916a5141c3b18de475d8.png') }}" loading="lazy"></a>
+                @endguest
             @endforeach
         </div>
         <div class="mt-8 grid sm:grid-cols-3 gap-8">
@@ -109,6 +131,25 @@
                 {{ __('Close') }}
             </x-secondary-button>
             <x-button class="ms-3" wire:click="save" wire:loading.attr="disabled">
+                {{ __('저장') }}
+            </x-button>
+        </x-slot>
+    </x-dialog-modal>
+    <x-dialog-modal wire:model.live="tuitionPhotoYoutubeModal" maxWidth="md">
+        <x-slot name="title">
+            <h1 class="font-bold">{{ __('유투브 링크 추가') }}</h1>
+        </x-slot>
+        <x-slot name="content">
+            <div class="">
+                <x-label for="link" value="링크" />
+                <x-input id="link" type="text" class="w-full" wire:model="link" placeholder="url을 입력해주세요"/>
+            </div>
+        </x-slot>
+        <x-slot name="footer">
+            <x-secondary-button wire:click="$set('tuitionPhotoYoutubeModal', false)" wire:loading.attr="disabled">
+                {{ __('취소') }}
+            </x-secondary-button>
+            <x-button class="ms-3" wire:click="savePhotoYoutubeLink" wire:loading.attr="disabled">
                 {{ __('저장') }}
             </x-button>
         </x-slot>

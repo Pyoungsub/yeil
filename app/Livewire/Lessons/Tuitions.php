@@ -19,6 +19,9 @@ class Tuitions extends Component
     public $img_path;
     public $selected_tuition_photo;
     public $tuitionModal;
+
+    public $link;
+    public $tuitionPhotoYoutubeModal;
     public function add()
     {
         $this->tuitionModal = true;
@@ -34,6 +37,26 @@ class Tuitions extends Component
         $lesson_tuition_photo = LessonTuitionPhoto::find($id);
         Storage::disk('public')->delete(($lesson_tuition_photo->img_path));
         $lesson_tuition_photo->delete();
+    }
+    public function addYoutube($id)
+    {
+        $this->selected_tuition_photo = LessonTuitionPhoto::find($id);
+        if($this->selected_tuition_photo->lesson_tuition_photo_url)
+        {
+            $this->link = $this->selected_tuition_photo->lesson_tuition_photo_url->link;
+        }
+        $this->tuitionPhotoYoutubeModal = true;
+    }
+    public function savePhotoYoutubeLink()
+    {
+        $validated = $this->validate([ 
+            'link' => 'required',
+        ]);
+        $this->selected_tuition_photo->lesson_tuition_photo_url()->updateOrCreate(
+            ['lesson_tuition_photo_id' => $this->selected_tuition_photo->id],
+            ['link' => $this->link]
+        );
+        $this->reset(['tuitionPhotoYoutubeModal', 'selected_tuition_photo', 'link']);
     }
     public function save()
     {
@@ -104,7 +127,7 @@ class Tuitions extends Component
         $this->reset(['tuitionVideoModal', 'video', 'video_path', 'selected_lesson_tuition_video']);
     }
     /*
-    public $link;
+    
     public $selected_lesson_tuition_youtube;
     public $tuitionYoutubeModal;
     public function addYoutube()

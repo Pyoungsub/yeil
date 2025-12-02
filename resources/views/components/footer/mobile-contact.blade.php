@@ -37,9 +37,10 @@
             </svg>
             <span>인스타그램</span>
         </a>
-        <a class="h-full inline-flex flex-col items-center justify-center text-sm" href="https://booking.naver.com/booking/6/bizes/1183922/items/5984742">
+        <!--a class="h-full inline-flex flex-col items-center justify-center text-sm" href="https://booking.naver.com/booking/6/bizes/1183922/items/5984742"-->
+        <a class="h-full inline-flex flex-col items-center justify-center text-sm" href="https://naver.me/F1ru18JD" target="_blank">
             <img src="{{asset('storage/company/naver.png')}}" alt="" class="mx-auto w-10 h-10">
-            <span>네이버예약</span>
+            <span>체험예약</span>
         </a>
     </div>
 </div>

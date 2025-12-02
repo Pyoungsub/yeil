@@ -413,6 +413,10 @@ class Purposes extends Component
         {
             $this->is_admin = true;
         }
+        if($this->purpose->purpose_banner_youtube)
+        {
+            $this->banner_youtube_link = $this->purpose->purpose_banner_youtube->link;
+        }
     }
     public function render()
     {

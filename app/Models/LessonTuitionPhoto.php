@@ -13,4 +13,8 @@ class LessonTuitionPhoto extends Model
     {
         return $this->belongsTo(Lesson::class);
     }
+    public function lesson_tuition_photo_url()
+    {
+        return $this->hasOne(LessonTuitionPhotoUrl::class);
+    }
 }

@@ -51,6 +51,9 @@
                                     <div class="rounded-lg mt-4 divide-y divide-gray-100 w-full h-full bg-cover bg-no-repeat bg-center p-8bg-cover bg-no-repeat bg-center p-8" style="background-image:url({{asset('storage/'.$promotion->img_path)}})"></div>
                                 </div>
                             </a>
+                            <a href="{{route('promotion', ['id' => $promotion->id])}}" class="">
+                                <button class="mt-4 bg-indigo-600 text-white text-sm leading-6 font-medium py-2 px-3 rounded-lg">지원하기</button>
+                            </a>
                         </div>
                     @endforeach
                 </div>
@@ -67,7 +70,14 @@
     </div>
     <div class="mt-8 grid sm:grid-cols-3 gap-8">
         @foreach($promotions as $promotion)
-            <div class="relative overflow-hidden rounded-2xl border w-full aspect-square bg-cover bg-no-repeat bg-center p-8 text-white" style="background-image:url({{asset('storage/'.$promotion->img_path)}})"></div>
+            <div class="">
+                <a href="{{route('promotion', ['id' => $promotion->id])}}">
+                    <div class="relative overflow-hidden rounded-2xl border w-full aspect-square bg-cover bg-no-repeat bg-center p-8 text-white" style="background-image:url({{asset('storage/'.$promotion->img_path)}})"></div>
+                </a>
+                <a href="{{route('promotion', ['id' => $promotion->id])}}" class="">
+                    <button class="mt-4 bg-indigo-600 text-white text-sm leading-6 font-medium py-2 px-3 rounded-lg">더 알아보기</button>
+                </a>
+            </div>
         @endforeach
     </div>
 </div>
