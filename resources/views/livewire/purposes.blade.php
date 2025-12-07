@@ -730,12 +730,12 @@
             x-data="{swiper:null}"
             x-init="
                 swiper = new Swiper($refs.container, {
-                    slidesPerView: 1.3,
+                    slidesPerView: 2.4,
                     spaceBetween: 30,
                     breakpoints: {
                         640: {
                         spaceBetween: 60,
-                            slidesPerView: 2.3,
+                            slidesPerView: 2.4,
                         },
                         768: {
                             slidesPerView: 4,
