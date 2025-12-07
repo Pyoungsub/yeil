@@ -504,75 +504,50 @@
                     @endif
                 @endauth
             </div>
-            <div class="mt-4 grid md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-                @foreach($purpose->purpose_people_videos as $purpose_people_video)
-                    <div class="">
-                        <div class="relative">
-                            @auth
-                                @if(auth()->user()->admin)
-                                    <div class="absolute top-2 right-2 z-20">
-                                        <button wire:click="modifyPeopleVideo({{$purpose_people_video->id}})" class="border bg-white rounded">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="arcs"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>
-                                        </button>
-                                        <button wire:confirm="영상를 삭제 하시겠습니까?" wire:click="deletePeopleVideo({{$purpose_people_video->id}})" class="border bg-white rounded">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="arcs"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                                        </button>
-                                    </div>
-                                @endif
-                            @endauth
-                            {{--<x-video source="{{ $purpose_people_video->video_path }}" />--}}
-                            {{--<x-square-video source="{{ $purpose_people_video->video_path }}" />--}}
-                            <x-rectangle-video source="{{ $purpose_people_video->video_path }}" />
-                        </div>    
-                        <h1 class="mt-4 text-white font-bold">{{ $purpose_people_video->goal }}</h1>
-                        <p class="mt-2 text-white font-bold">{{ $purpose_people_video->name }}</p>
-                    </div>
-                @endforeach
-            </div>
-            {{--
-                <div class="mt-4 grid md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-                    @foreach($purpose->purpose_people_youtubes as $purpose_people_youtube)
-                        <div class="relative">
-                            @auth
-                                @if(auth()->user()->admin)
-                                    <div class="absolute top-2 right-2">
-                                        <button wire:click="modifyPeople({{$purpose_people_youtube->id}})" class="border bg-white rounded">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="arcs"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>
-                                        </button>
-                                        <button wire:confirm="합격자를 삭제 하시겠습니까?" wire:click="deletePeople({{$purpose_people_youtube->id}})" class="border bg-white rounded">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="arcs"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                                        </button>
-                                    </div>
-                                @endif
-                            @endauth
-                            <iframe class="rounded-lg w-full aspect-[9/16] pointer-events-none" src="https://www.youtube-nocookie.com/embed/{{ $purpose_people_youtube->link }}?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&showinfo=0&playlist={{ $purpose_people_youtube->link }}" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                            <h1 class="mt-4 text-white font-bold">{{ $purpose_people_youtube->goal }}</h1>
-                            <p class="mt-2 text-white font-bold">{{ $purpose_people_youtube->name }}</p>
+            <div class="mt-4 grid md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
+                x-data="{swiper:null}"
+                x-init="
+                    swiper = new Swiper($refs.container, {
+                        slidesPerView: 2.4,
+                        spaceBetween: 30,
+                        breakpoints: {
+                            640: {
+                            spaceBetween: 60,
+                                slidesPerView: 2.4,
+                            },
+                            768: {
+                                slidesPerView: 4,
+                            },
+                        },
+                    });
+                "
+            >
+                @if(count($purpose->purpose_people_videos) > 0)
+                    <div x-ref="container" class="mt-4 w-full overflow-hidden">
+                        <div class="swiper-wrapper">
+                            @foreach($purpose->purpose_people_videos as $purpose_people_video)
+                                <div class="swiper-slide relative">
+                                    @auth
+                                        @if(auth()->user()->admin)
+                                            <div class="absolute top-2 right-2 z-20">
+                                                <button wire:click="modifyPeopleVideo({{$purpose_people_video->id}})" class="border bg-white rounded">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="arcs"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>
+                                                </button>
+                                                <button wire:confirm="영상를 삭제 하시겠습니까?" wire:click="deletePeopleVideo({{$purpose_people_video->id}})" class="border bg-white rounded">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="arcs"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                                </button>
+                                            </div>
+                                        @endif
+                                    @endauth
+                                    <x-rectangle-video source="{{ $purpose_people_video->video_path }}" />
+                                    <h1 class="mt-4 text-white font-bold">{{ $purpose_people_video->goal }}</h1>
+                                    <p class="mt-2 text-white font-bold">{{ $purpose_people_video->name }}</p>
+                                </div>
+                            @endforeach
                         </div>
-                    @endforeach
-                    <!--div class="">
-                        <iframe class="rounded-lg w-full aspect-[9/16] pointer-events-none" src="https://www.youtube-nocookie.com/embed/mo1RUISXAmk?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&showinfo=0&playlist=mo1RUISXAmk" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        <h1 class="mt-4 text-white font-bold">서공예 실용무용과</h1>
-                        <p class="mt-2 text-white font-bold">김민지</p>
                     </div>
-                    <div class="">
-                        <iframe class="rounded-lg w-full aspect-[9/16] pointer-events-none" src="https://www.youtube-nocookie.com/embed/FXhlGS935ac?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&showinfo=0&playlist=FXhlGS935ac" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        <h1 class="mt-4 text-white font-bold">서공예 실용무용과</h1>
-                        <p class="mt-2 text-white font-bold">오서연</p>
-                    </div>
-                    <div class="">
-                        <iframe class="rounded-lg w-full aspect-[9/16] pointer-events-none" src="https://www.youtube-nocookie.com/embed/Ysy0m1cTDK4?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&showinfo=0&playlist=Ysy0m1cTDK4" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        <h1 class="mt-4 text-white font-bold">한림예고 실용무용과 합격</h1>
-                        <p class="mt-2 text-white font-bold">김세빈</p>
-                    </div>
-                    <div class="">
-                        <iframe class="rounded-lg w-full aspect-[9/16] pointer-events-none" src="https://www.youtube-nocookie.com/embed/Z0veg-NjD_c?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&showinfo=0&playlist=Z0veg-NjD_c" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        <h1 class="mt-4 text-white font-bold">세종대 실용무용과</h1>
-                        <p class="mt-2 text-white font-bold">추가연</p>
-                    </div-->
-                </div>
-            --}}
-            
+                @endif
+            </div>            
         </div>
         <x-dialog-modal wire:model.live="introduceModal">
             <x-slot name="title">
