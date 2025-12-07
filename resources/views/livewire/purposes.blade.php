@@ -504,7 +504,7 @@
                     @endif
                 @endauth
             </div>
-            <div class="mt-4 grid md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
+            <div class="pt-12 pb-4 px-2 max-w-7xl mx-auto"
                 x-data="{swiper:null}"
                 x-init="
                     swiper = new Swiper($refs.container, {
