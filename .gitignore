@@ -3,6 +3,8 @@
 /public/build
 /public/hot
 /public/storage
+!/public/storage/froala
+!/public/storage/froala/**
 /storage/*.key
 /vendor
 .env
