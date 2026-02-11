@@ -2,3 +2,7 @@
 !.gitignore
 !froala
 !froala/**
+!company
+!company/**
+!video
+!video/**
