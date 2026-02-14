@@ -2,9 +2,3 @@
 !.gitignore
 !froala
 !froala/**
-!company
-!company/**
-!video
-!video/**
-!logos
-!logos/**

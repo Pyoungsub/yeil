@@ -1,16 +1,5 @@
 <div class="">
     {{--
-        <div class="relative">
-            @auth
-                @if(auth()->user()->admin)
-                    <div class="absolute inset-0 z-20 flex items-center justify-center">
-                        <button class="rounded border-2 border-black px-4 py-1 bg-white font-bold" wire:click="modifyYoutube">수정</button>
-                    </div>
-                @endif
-            @endauth
-            <x-youtube-banner link="{{ $lesson->lesson_youtube ? $lesson->lesson_youtube->link  :  asset('storage/video/7cf4958d5002916a5141c3b18de475d8.png') }}"></x-youtube-banner>
-        </div>
-    --}}
     <div class="relative">
         @auth
             @if(auth()->user()->admin)
@@ -21,7 +10,9 @@
         @endauth
         <x-mp4 :source="$lesson_main_video" />
     </div>
-    <div class="py-8 grid sm:grid-cols-3 max-w-5xl mx-auto p-2 gap-2">
+    --}}
+    
+    <div class="pt-20 pb-8 grid sm:grid-cols-3 max-w-5xl mx-auto p-2 gap-2">
         @foreach($lesson->purposes as $purpose)
             @auth
                 @if(auth()->user()->admin)

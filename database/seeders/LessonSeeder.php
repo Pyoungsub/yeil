@@ -16,6 +16,7 @@ class LessonSeeder extends Seeder
         Lesson::insert([
             ['lesson' => 'vocal', 'lesson_ko' => '보컬', 'created_at' => now(), 'updated_at' => now()],
             ['lesson' => 'dance', 'lesson_ko' => '댄스', 'created_at' => now(), 'updated_at' => now()],
+            ['lesson' => 'act', 'lesson_ko' => '연기', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 }

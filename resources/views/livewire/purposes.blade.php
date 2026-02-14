@@ -2,6 +2,7 @@
     <script src="//cdn.tiny.cloud/1/mn37b7osy35qr0kk1f8sptgd7rx0avbo4bo7m5pg0tzuilvw/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 @endpush
 <div class="">
+    {{--
     <div class="relative">
         @if($is_admin)
             <div class="absolute inset-0 z-20 flex items-center justify-center">
@@ -36,6 +37,8 @@
             </x-button>
         </x-slot>
     </x-dialog-modal>
+    --}}
+    
     
     <div class="bg-black pt-8">
         <div class="py-12 px-2 max-w-7xl mx-auto">

@@ -21,9 +21,3 @@ yarn-error.log
 /storage/app/public/*
 !/storage/app/public/froala
 !/storage/app/public/froala/**
-!/storage/app/public/company
-!/storage/app/public/company/**
-!/storage/app/public/video
-!/storage/app/public/video/**
-!/storage/app/public/logos
-!/storage/app/public/logos/**
