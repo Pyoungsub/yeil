@@ -1,7 +1,7 @@
 <div class="bg-black">
     <div class="py-8 max-w-5xl mx-auto p-2">
         <div class="flex items-center justify-center gap-2">
-            <h1 class="text-4xl text-center text-white font-bold"><span class="text-red-700">Y</span>EIL {{$lesson->lesson_ko}} 강사진</h1>
+            <h1 class="text-4xl text-center text-white font-bold"><span class="text-red-700">Y</span>EIL {{$lesson->lesson_ko}} 영상</h1>
             @auth
                 @if(auth()->user()->admin)
                     <button wire:click="add" class="relative border border-white text-white rounded px-2 z-10">추가</button>
