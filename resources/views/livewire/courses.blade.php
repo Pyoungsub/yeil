@@ -92,7 +92,6 @@
                         @endif
                     </div>
                 </div>
-                
             </div>
             <livewire:lessons.videos :lesson="$lesson" />
         @endforeach 
