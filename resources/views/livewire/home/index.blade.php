@@ -1,6 +1,6 @@
 
 <div class="">
-    <x-mp4 source="/video/7cf4958d5002916a5141c3b18de475d8.mp4" />
+    <livewire:main-video />
     <livewire:courses />
     <livewire:audition />
     <x-promotion />
