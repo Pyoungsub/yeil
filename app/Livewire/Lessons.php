@@ -10,12 +10,18 @@ use Illuminate\Support\Facades\Storage;
 class Lessons extends Component
 {
     use WithFileUploads;
+    public $admin;
+
     public $lesson;
     public $lesson_main_video;
 
     public $video;
     public $video_path;
     public $mainVideoModal;
+
+    public $videoModal;
+    public $editingVideo;
+    public $editMode = false;
     public function modifyMainVideo()
     {
         $this->reset('video_path');
@@ -102,6 +108,10 @@ class Lessons extends Component
     }
     public function mount($lesson)
     {
+        if(auth()->user() && auth()->user()->admin)
+        {
+            $this->admin = true;
+        }
         $this->lesson = Lesson::where('lesson', $lesson)->first();
         $this->lesson->lesson_main_video ? $this->lesson_main_video = $this->lesson->lesson_main_video->video_path : 'video/7cf4958d5002916a5141c3b18de475d8.mp4';
     }
