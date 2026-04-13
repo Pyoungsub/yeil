@@ -22,6 +22,8 @@ class Lessons extends Component
     public $videoModal;
     public $editingVideo;
     public $editMode = false;
+    public $selectedPurposeId;
+    public $editingVideoId;
     public function modifyMainVideo()
     {
         $this->reset('video_path');
@@ -95,6 +97,7 @@ class Lessons extends Component
     }
     public function save()
     {
+        /*
         if($this->img_path)
         {
             Storage::disk('public')->delete(($this->img_path));
@@ -105,6 +108,96 @@ class Lessons extends Component
             ['img_path' => $path]
         );
         $this->reset(['purposeModal', 'selected_purpose', 'img_path', 'photo', 'photoPreview']);
+        */
+        // 👉 영상 저장 (추가 / 수정)
+        if ($this->selectedPurposeId || $this->editingVideoId) {
+
+            $this->validate([
+                'video' => $this->editMode ? 'nullable|file|mimes:mp4,mov,avi,webm|max:51200'
+                                        : 'required|file|mimes:mp4,mov,avi,webm|max:51200',
+            ]);
+
+            // 🔥 수정 모드
+            if ($this->editMode && $this->editingVideoId) {
+                $video = \App\Models\PurposeVideo::findOrFail($this->editingVideoId);
+
+                if ($this->video) {
+                    // 기존 파일 삭제
+                    Storage::disk('public')->delete($video->video_path);
+
+                    // 새 파일 저장
+                    $video_path = $this->video->storePublicly('purpose_videos', 'public');
+                    $video->update(['video_path' => $video_path]);
+                }
+            }
+
+            // 🔥 추가 모드
+            elseif ($this->selectedPurposeId) {
+                $video_path = $this->video->storePublicly('purpose_videos', 'public');
+
+                \App\Models\PurposeVideo::create([
+                    'purpose_id' => $this->selectedPurposeId,
+                    'video_path' => $video_path,
+                ]);
+            }
+
+            $this->reset([
+                'videoModal',
+                'video',
+                'selectedPurposeId',
+                'editingVideoId',
+                'editMode',
+                'video_path'
+            ]);
+
+            $this->lesson->refresh();
+            return;
+        }
+
+        // 👉 기존 이미지 로직 유지
+        if($this->img_path)
+        {
+            Storage::disk('public')->delete(($this->img_path));
+        }
+
+        $path = $this->photo->storePublicly('purposes', 'public');
+
+        $this->selected_purpose->purpose_photo()->updateOrCreate(
+            ['purpose_id' => $this->selected_purpose->id],
+            ['img_path' => $path]
+        );
+
+        $this->reset(['purposeModal', 'selected_purpose', 'img_path', 'photo', 'photoPreview']);
+    }
+    public function addVideo($id)
+    {
+        $this->reset(['video', 'editMode']);
+        $this->selectedPurposeId = $id;
+        $this->videoModal = true;
+    }
+    public function modifyVideo($id)
+    {
+        $this->reset(['video']);
+        $video = \App\Models\PurposeVideo::findOrFail($id);
+
+        $this->editingVideoId = $video->id;
+        $this->video_path = $video->video_path;
+        $this->editMode = true;
+
+        $this->videoModal = true;
+    }
+    public function deleteVideo($id)
+    {
+        $video = \App\Models\PurposeVideo::findOrFail($id);
+
+        // 파일 삭제
+        Storage::disk('public')->delete($video->video_path);
+
+        // DB 삭제
+        $video->delete();
+
+        // UI 갱신
+        $this->lesson->refresh();
     }
     public function mount($lesson)
     {

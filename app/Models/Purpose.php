@@ -61,4 +61,8 @@ class Purpose extends Model
     {
         return $this->hasMany(PurposePeopleVideo::class);
     }
+    public function purpose_videos()
+    {
+        return $this->hasMany(PurposeVideo::class);
+    }
 }

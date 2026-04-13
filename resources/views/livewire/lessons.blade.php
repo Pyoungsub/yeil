@@ -85,23 +85,23 @@
                 >
                     <div x-ref="container" class="swiper w-full overflow-hidden">
                         <div class="swiper-wrapper">
-                            @foreach($purpose->purpose_people_videos as $purpose_tuition_video)
-                                <div class="swiper-slide relative" wire:key="video-{{ $purpose_tuition_video->id }}">
+                            @foreach($purpose->purpose_videos as $purpose_video)
+                                <div class="swiper-slide relative" wire:key="video-{{ $purpose_video->id }}">
                                     @auth
                                         @if(auth()->user()->admin)
                                             <div class="flex items-cetner gap-2 absolute top-0 right-0 z-20">
-                                                <button class="bg-white rounded" wire:click="modifyIdolVideo({{$purpose_tuition_video->id}})">
+                                                <button class="bg-white rounded" wire:click="modifyVideo({{$purpose_video->id}})">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="arcs"><polygon points="14 2 18 6 7 17 3 17 3 13 14 2"></polygon><line x1="3" y1="22" x2="21" y2="22"></line></svg>
                                                 </button>
-                                                <button class="bg-white rounded" wire:click="deleteIdolVideo({{$purpose_tuition_video->id}})">
+                                                <button class="bg-white rounded" wire:click="deleteVideo({{$purpose_video->id}})">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="arcs"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                                                 </button>
                                             </div>
                                         @endif
                                     @endauth
-                                    {{--<x-video source="{{ $purpose_tuition_video->video_path }}" />--}}
-                                    <x-rectangle-video source="{{ $purpose_tuition_video->video_path }}" />
-                                    {{--<x-square-video source="{{ $purpose_tuition_video->video_path }}" />--}}
+                                    {{--<x-video source="{{ $purpose_video->video_path }}" />--}}
+                                    <x-rectangle-video source="{{ $purpose_video->video_path }}" />
+                                    {{--<x-square-video source="{{ $purpose_video->video_path }}" />--}}
                                 </div>
                             @endforeach
                         </div>
@@ -112,7 +112,7 @@
         <!-- Token Value Modal -->
         <x-dialog-modal wire:model="videoModal">
             <x-slot name="title">
-                {{ $editMode ? '영상 수정' : '메인페이지 동영상 관리' }}
+                {{ $editMode ? '영상 수정' : '커리큘럼 동영상 관리' }}
             </x-slot>
 
             <x-slot name="content">
