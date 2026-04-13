@@ -13,13 +13,23 @@
                                 <button class="absolute right-0 p-2 bg-white rounded border" wire:click="modify({{$lesson->id}}, 1)">{{ __('수정') }}</button>
                             </div>
                         @else
-                            <a href="https://www.yeilactor.co.kr/" class="sm:col-span-4">
-                                <div class="relative w-full h-60 bg-cover bg-center bg-no-repeat rounded-lg sm:h-52 sm:col-span-2 lg:col-span-full" style="background-image:url({{ $lesson->mainpage_lesson_photos->first() ? asset('storage/'.$lesson->mainpage_lesson_photos->first()->img_path ) :  asset('storage/vocal/mNvXDdVAhpyDQWQSRBm3Ekt6xKBopMye5NqqKiut.png') }}" loading="lazy">
-                                    <h1 class="block sm:hidden absolute top-4 left-0 text-2xl font-bold bg-black/30 text-white rounded-sm px-1">
-                                        {{ $lesson->lesson_ko }}
-                                    </h1>
-                                </div>
-                            </a>
+                            @if($lesson->lesson == 'act')
+                                <a href="https://www.yeilactor.co.kr/" class="sm:col-span-4">
+                                    <div class="relative w-full h-60 bg-cover bg-center bg-no-repeat rounded-lg sm:h-52 sm:col-span-2 lg:col-span-full" style="background-image:url({{ $lesson->mainpage_lesson_photos->first() ? asset('storage/'.$lesson->mainpage_lesson_photos->first()->img_path ) :  asset('storage/vocal/mNvXDdVAhpyDQWQSRBm3Ekt6xKBopMye5NqqKiut.png') }}" loading="lazy">
+                                        <h1 class="block sm:hidden absolute top-4 left-0 text-2xl font-bold bg-black/30 text-white rounded-sm px-1">
+                                            {{ $lesson->lesson_ko }}
+                                        </h1>
+                                    </div>
+                                </a>
+                            @else
+                                <a href="{{ route('lessons', ['lesson' => $lesson->lesson]) }}" class="sm:col-span-4">
+                                    <div class="relative w-full h-60 bg-cover bg-center bg-no-repeat rounded-lg sm:h-52 sm:col-span-2 lg:col-span-full" style="background-image:url({{ $lesson->mainpage_lesson_photos->first() ? asset('storage/'.$lesson->mainpage_lesson_photos->first()->img_path ) :  asset('storage/vocal/mNvXDdVAhpyDQWQSRBm3Ekt6xKBopMye5NqqKiut.png') }}" loading="lazy">
+                                        <h1 class="block sm:hidden absolute top-4 left-0 text-2xl font-bold bg-black/30 text-white rounded-sm px-1">
+                                            {{ $lesson->lesson_ko }}
+                                        </h1>
+                                    </div>
+                                </a>
+                            @endif
                         @endif
                         <div class="relative hidden w-full h-52 rounded-lg sm:block sm:col-span-2 md:col-span-1 lg:row-start-2 lg:col-span-2 lg:h-32">
                             <div
@@ -29,9 +39,11 @@
                                     : asset('storage/vocal/mNvXDdVAhpyDQWQSRBm3Ekt6xKBopMye5NqqKiut.png') }})">
                             </div>
                             @unless($admin)
-                                <a href="https://www.yeilactor.co.kr/"
-                                class="absolute inset-0 z-10">
-                                </a>
+                                @if($lesson->lesson == 'act')
+                                    <a href="https://www.yeilactor.co.kr/" class="absolute inset-0 z-10"></a>
+                                @else
+                                    <a href="{{ route('lessons', ['lesson' => $lesson->lesson]) }}" class="absolute inset-0 z-10"></a>
+                                @endif
                             @endunless
                             @if($admin)
                                 <button
@@ -51,7 +63,11 @@
                                     : asset('storage/vocal/mNvXDdVAhpyDQWQSRBm3Ekt6xKBopMye5NqqKiut.png') }})">
                             </div>
                             @unless($admin)
-                                <a href="https://www.yeilactor.co.kr/" class="absolute inset-0 z-10"></a>
+                                @if($lesson->lesson == 'act')
+                                    <a href="https://www.yeilactor.co.kr/" class="absolute inset-0 z-10"></a>
+                                @else
+                                    <a href="{{ route('lessons', ['lesson' => $lesson->lesson]) }}" class="absolute inset-0 z-10"></a>
+                                @endif
                             @endunless
                             @if($admin)
                                 <button
