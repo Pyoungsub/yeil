@@ -40,16 +40,33 @@
     <div class="max-w-5xl mx-auto">
         @foreach ($lesson->purposes as $purpose)
             <div class="mb-4">
-                <div class="flex gap-2 items-center px-2">
-                    <a href="{{ route('purposes', ['lesson' => $purpose->lesson->lesson, 'purpose' => $purpose->purpose]) }}"
-                    class="inline-flex items-center gap-2 px-6 py-3 text-lg font-bold text-white border border-white
-                            rounded-xl shadow-lg">
-                        ▶ {{ $purpose->purpose_ko }} 커리큘럼
-                    </a>
+                <div class="flex gap-2 items-center justify-center px-2">
+                    {{--
+                        <a href="{{ route('purposes', ['lesson' => $purpose->lesson->lesson, 'purpose' => $purpose->purpose]) }}"
+                        class="inline-flex items-center gap-2 px-6 py-3 text-lg font-bold text-white border border-white
+                                rounded-xl shadow-lg">
+                            ▶ {{ $purpose->purpose_ko }} 커리큘럼
+                        </a>
+                    --}}
+                    
                     @if($admin)
+                        <div class="relative overflow-hidden border h-14 bg-cover bg-no-repeat bg-center p-8 text-white flex items-center" style="background-image:url({{ $purpose->purpose_photo ? asset('storage/'.$purpose->purpose_photo->img_path ) :  asset('storage/company/7cf4958d5002916a5141c3b18de475d8.png') }}" loading="lazy">
+                            <div class="absolute inset-0 bg-black bg-opacity-50 z-0"></div>
+                            <button wire:click="modify({{ $purpose->id }})" class="absolute top-2 right-2 border border-white text-white rounded px-2 z-20 bg-black">사진수정</button>
+                            <a class="relative z-10" href="{{ route('purposes', ['lesson' => $purpose->lesson->lesson, 'purpose' => $purpose->purpose]) }}">
+                                <h2 class="text-3xl font-semibold text-white">{{ $purpose->purpose_ko }}</h2>
+                            </a>
+                        </div>
                         <x-button wire:click="addVideo({{ $purpose->id }})">
                             영상추가
                         </x-button>
+                    @else
+                        <a class="" href="{{ route('purposes', ['lesson' => $purpose->lesson->lesson, 'purpose' => $purpose->purpose]) }}">
+                            <div class="relative overflow-hidden border h-14 bg-cover bg-no-repeat bg-center p-8 text-white flex items-center" style="background-image:url({{ $purpose->purpose_photo ? asset('storage/'.$purpose->purpose_photo->img_path ) :  asset('storage/company/7cf4958d5002916a5141c3b18de475d8.png') }}" loading="lazy">
+                                <div class="absolute inset-0 bg-black bg-opacity-50 z-0"></div>
+                                <h2 class="relative z-10 text-3xl font-semibold text-white">{{ $purpose->purpose_ko }}</h2>
+                            </div>
+                        </a>
                     @endif
                 </div>
                 <div class="py-4 px-2 max-w-5xl mx-auto"
