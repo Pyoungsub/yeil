@@ -50,7 +50,7 @@
                     --}}
                     
                     @if($admin)
-                        <div class="relative overflow-hidden border h-14 bg-cover bg-no-repeat bg-center p-8 text-white flex items-center" style="background-image:url({{ $purpose->purpose_photo ? asset('storage/'.$purpose->purpose_photo->img_path ) :  asset('storage/company/7cf4958d5002916a5141c3b18de475d8.png') }}" loading="lazy">
+                        <div class="relative overflow-hidden border h-14 w-64 bg-cover bg-no-repeat bg-center p-8 text-white flex items-center justify-center" style="background-image:url({{ $purpose->purpose_photo ? asset('storage/'.$purpose->purpose_photo->img_path ) :  asset('storage/company/7cf4958d5002916a5141c3b18de475d8.png') }}" loading="lazy">
                             <div class="absolute inset-0 bg-black bg-opacity-50 z-0"></div>
                             <button wire:click="modify({{ $purpose->id }})" class="absolute top-2 right-2 border border-white text-white rounded px-2 z-20 bg-black">사진수정</button>
                             <a class="relative z-10" href="{{ route('purposes', ['lesson' => $purpose->lesson->lesson, 'purpose' => $purpose->purpose]) }}">
@@ -62,7 +62,7 @@
                         </x-button>
                     @else
                         <a class="" href="{{ route('purposes', ['lesson' => $purpose->lesson->lesson, 'purpose' => $purpose->purpose]) }}">
-                            <div class="relative overflow-hidden border h-14 bg-cover bg-no-repeat bg-center p-8 text-white flex items-center" style="background-image:url({{ $purpose->purpose_photo ? asset('storage/'.$purpose->purpose_photo->img_path ) :  asset('storage/company/7cf4958d5002916a5141c3b18de475d8.png') }}" loading="lazy">
+                            <div class="relative overflow-hidden border h-14 w-64 bg-cover bg-no-repeat bg-center p-8 text-white flex items-center justify-center" style="background-image:url({{ $purpose->purpose_photo ? asset('storage/'.$purpose->purpose_photo->img_path ) :  asset('storage/company/7cf4958d5002916a5141c3b18de475d8.png') }}" loading="lazy">
                                 <div class="absolute inset-0 bg-black bg-opacity-50 z-0"></div>
                                 <h2 class="relative z-10 text-3xl font-semibold text-white">{{ $purpose->purpose_ko }}</h2>
                             </div>
