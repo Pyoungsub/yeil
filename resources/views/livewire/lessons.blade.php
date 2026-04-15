@@ -38,8 +38,9 @@
         </div>
     --}}
     <div class="max-w-5xl mx-auto">
-        @foreach ($lesson->purposes as $purpose)
-            <div class="mb-4">
+        <div class="grid lg:grid-cols-3 gap-4">
+            @foreach ($lesson->purposes as $purpose)
+                
                 <div class="flex gap-2 items-center justify-center px-2">
                     {{--
                         <a href="{{ route('purposes', ['lesson' => $purpose->lesson->lesson, 'purpose' => $purpose->purpose]) }}"
@@ -50,82 +51,85 @@
                     --}}
                     
                     @if($admin)
-                        <div class="relative overflow-hidden border h-14 w-64 bg-cover bg-no-repeat bg-center p-8 text-white flex items-center justify-center" style="background-image:url({{ $purpose->purpose_photo ? asset('storage/'.$purpose->purpose_photo->img_path ) :  asset('storage/company/7cf4958d5002916a5141c3b18de475d8.png') }}" loading="lazy">
+                        <div class="relative overflow-hidden border h-14 w-full bg-cover bg-no-repeat bg-center p-8 text-white flex items-center justify-center" style="background-image:url({{ $purpose->purpose_photo ? asset('storage/'.$purpose->purpose_photo->img_path ) :  asset('storage/company/7cf4958d5002916a5141c3b18de475d8.png') }}" loading="lazy">
                             <div class="absolute inset-0 bg-black bg-opacity-50 z-0"></div>
                             <button wire:click="modify({{ $purpose->id }})" class="absolute top-2 right-2 border border-white text-white rounded px-2 z-20 bg-black">사진수정</button>
                             <a class="relative z-10" href="{{ route('purposes', ['lesson' => $purpose->lesson->lesson, 'purpose' => $purpose->purpose]) }}">
                                 <h2 class="text-3xl font-semibold text-white">{{ $purpose->purpose_ko }}</h2>
                             </a>
                         </div>
-                        <x-button wire:click="addVideo({{ $purpose->id }})">
-                            영상추가
-                        </x-button>
+                        {{--
+                            <x-button wire:click="addVideo({{ $purpose->id }})">
+                                영상추가
+                            </x-button>
+                        --}}
                     @else
                         <a class="" href="{{ route('purposes', ['lesson' => $purpose->lesson->lesson, 'purpose' => $purpose->purpose]) }}">
-                            <div class="relative overflow-hidden border h-14 w-64 bg-cover bg-no-repeat bg-center p-8 text-white flex items-center justify-center" style="background-image:url({{ $purpose->purpose_photo ? asset('storage/'.$purpose->purpose_photo->img_path ) :  asset('storage/company/7cf4958d5002916a5141c3b18de475d8.png') }}" loading="lazy">
+                            <div class="relative overflow-hidden border h-14 w-full bg-cover bg-no-repeat bg-center p-8 text-white flex items-center justify-center" style="background-image:url({{ $purpose->purpose_photo ? asset('storage/'.$purpose->purpose_photo->img_path ) :  asset('storage/company/7cf4958d5002916a5141c3b18de475d8.png') }}" loading="lazy">
                                 <div class="absolute inset-0 bg-black bg-opacity-50 z-0"></div>
                                 <h2 class="relative z-10 text-3xl font-semibold text-white">{{ $purpose->purpose_ko }}</h2>
                             </div>
                         </a>
                     @endif
                 </div>
-                <div class="py-4 px-2 max-w-5xl mx-auto"
-                    x-data="{swiper:null}"
-                    x-init="
-                        swiper = new Swiper($refs.container, {
-                            slidesPerView: 2.3,
-                            spaceBetween: 15,
-                            breakpoints: {
-                                640: { // sm breakpoint
-                                    slidesPerView: 2.3,
-                                    spaceBetween: 15,
+                {{--
+                    <div class="py-4 px-2 max-w-5xl mx-auto"
+                        x-data="{swiper:null}"
+                        x-init="
+                            swiper = new Swiper($refs.container, {
+                                slidesPerView: 2.3,
+                                spaceBetween: 15,
+                                breakpoints: {
+                                    640: { // sm breakpoint
+                                        slidesPerView: 2.3,
+                                        spaceBetween: 15,
+                                    },
+                                    768: { // md breakpoint
+                                        slidesPerView: 2.3,
+                                        spaceBetween: 15,
+                                    },
+                                    1024: { // lg breakpoint
+                                        slidesPerView: 2.5,
+                                        spaceBetween: 15,
+                                    },
+                                    1280: { // xl breakpoint
+                                        slidesPerView: 3.3,
+                                        spaceBetween: 15,
+                                    },
+                                    1536: { // 2xl breakpoint
+                                        slidesPerView: 3.5,
+                                        spaceBetween: 15,
+                                    }
                                 },
-                                768: { // md breakpoint
-                                    slidesPerView: 2.3,
-                                    spaceBetween: 15,
-                                },
-                                1024: { // lg breakpoint
-                                    slidesPerView: 2.5,
-                                    spaceBetween: 15,
-                                },
-                                1280: { // xl breakpoint
-                                    slidesPerView: 3.3,
-                                    spaceBetween: 15,
-                                },
-                                1536: { // 2xl breakpoint
-                                    slidesPerView: 3.5,
-                                    spaceBetween: 15,
-                                }
-                            },
-                        });
-                    "
-                >
-                    <div x-ref="container" class="swiper w-full overflow-hidden">
-                        <div class="swiper-wrapper">
-                            @foreach($purpose->purpose_videos as $purpose_video)
-                                <div class="swiper-slide relative" wire:key="video-{{ $purpose_video->id }}">
-                                    @auth
-                                        @if(auth()->user()->admin)
-                                            <div class="flex items-cetner gap-2 absolute top-0 right-0 z-20">
-                                                <button class="bg-white rounded" wire:click="modifyVideo({{$purpose_video->id}})">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="arcs"><polygon points="14 2 18 6 7 17 3 17 3 13 14 2"></polygon><line x1="3" y1="22" x2="21" y2="22"></line></svg>
-                                                </button>
-                                                <button class="bg-white rounded" wire:click="deleteVideo({{$purpose_video->id}})">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="arcs"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                                                </button>
-                                            </div>
-                                        @endif
-                                    @endauth
-                                    {{--<x-video source="{{ $purpose_video->video_path }}" />--}}
-                                    <x-rectangle-video source="{{ $purpose_video->video_path }}" />
-                                    {{--<x-square-video source="{{ $purpose_video->video_path }}" />--}}
-                                </div>
-                            @endforeach
+                            });
+                        "
+                    >
+                        <div x-ref="container" class="swiper w-full overflow-hidden">
+                            <div class="swiper-wrapper">
+                                @foreach($purpose->purpose_videos as $purpose_video)
+                                    <div class="swiper-slide relative" wire:key="video-{{ $purpose_video->id }}">
+                                        @auth
+                                            @if(auth()->user()->admin)
+                                                <div class="flex items-cetner gap-2 absolute top-0 right-0 z-20">
+                                                    <button class="bg-white rounded" wire:click="modifyVideo({{$purpose_video->id}})">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="arcs"><polygon points="14 2 18 6 7 17 3 17 3 13 14 2"></polygon><line x1="3" y1="22" x2="21" y2="22"></line></svg>
+                                                    </button>
+                                                    <button class="bg-white rounded" wire:click="deleteVideo({{$purpose_video->id}})">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="arcs"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                                    </button>
+                                                </div>
+                                            @endif
+                                        @endauth
+                                        <x-rectangle-video source="{{ $purpose_video->video_path }}" />
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        @endforeach
+                --}}
+            @endforeach
+        </div>
+        
         <!-- Token Value Modal -->
         <x-dialog-modal wire:model="videoModal">
             <x-slot name="title">
