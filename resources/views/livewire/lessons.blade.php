@@ -41,7 +41,7 @@
         <div class="grid lg:grid-cols-3 gap-4">
             @foreach ($lesson->purposes as $purpose)
                 
-                <div class="flex gap-2 items-center justify-center px-2">
+                <div class="px-2 w-full">
                     {{--
                         <a href="{{ route('purposes', ['lesson' => $purpose->lesson->lesson, 'purpose' => $purpose->purpose]) }}"
                         class="inline-flex items-center gap-2 px-6 py-3 text-lg font-bold text-white border border-white
