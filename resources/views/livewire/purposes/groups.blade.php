@@ -1,23 +1,23 @@
 <div class="bg-black pt-8">
     <div class="py-8 max-w-5xl mx-auto p-2">
         <div class="flex items-center justify-center gap-2">
-            <h2 class="text-4xl text-white font-bold"><span class="text-red-700">Y</span>EIL {{$purpose->purpose_ko}} 수업안내</h2>
+            <h2 class="text-4xl text-white font-bold"><span class="text-red-700">Y</span>EIL {{$group->group_ko}}</h2>
             @auth
                 @if(auth()->user()->admin)
-                    <button wire:click="openCurriculumModal" class="py-1 px-2 text-white border border-white rounded">수업안내 추가</button>
+                    <button wire:click="openGroupPhotoModal" class="py-1 px-2 text-white border border-white rounded">수업안내 추가</button>
                 @endif
             @endauth
         </div>
         <div class="mt-8 grid sm:grid-cols-3 gap-8">
-            @foreach($curricula as $curriculum)
+            @foreach($group_photos as $group_photo)
                 <div class="relative overflow-hidden rounded-2xl border w-full aspect-square bg-cover bg-no-repeat bg-center p-8 text-white"
-                    style="background-image:url({{ $curriculum->img_path ? asset('storage/'.$curriculum->img_path ) : asset('storage/company/7cf4958d5002916a5141c3b18de475d8.png') }}" loading="lazy">
+                    style="background-image:url({{ $group_photo->img_path ? asset('storage/'.$group_photo->img_path ) : asset('storage/company/7cf4958d5002916a5141c3b18de475d8.png') }}" loading="lazy">
                     @auth
                         @if(auth()->user()->admin)
                             <div class="flex justify-between w-full z-10">
                                 <div>
-                                    <button wire:click.stop="openImageModal({{ $curriculum->id }})" class="relative border border-white text-white rounded px-2 z-10">수정</button>
-                                    <button wire:click.stop="delete({{ $curriculum->id }})" class="relative border border-white text-white rounded px-2 z-10">삭제</button>
+                                    <button wire:click.stop="openImageModal({{ $group_photo->id }})" class="relative border border-white text-white rounded px-2 z-10">수정</button>
+                                    <button wire:click.stop="delete({{ $group_photo->id }})" class="relative border border-white text-white rounded px-2 z-10">삭제</button>
                                 </div>
                             </div>
                         @endif

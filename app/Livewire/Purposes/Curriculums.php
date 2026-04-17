@@ -24,7 +24,7 @@ class Curriculums extends Component
     }
     public function openImageModal($id)
     {
-        $this->reset('photo');
+        $this->reset(['photo','img_path']);
         $this->curriculumId = $id;
         $this->isImageModalOpen = true;
     }
@@ -42,17 +42,14 @@ class Curriculums extends Component
         $this->closeImageModal();
     }
 
-    public function deleteImage($id)
+    public function delete($id)
     {
         $curriculum = Curriculum::findOrFail($id);
 
         if ($curriculum->img_path) {
             Storage::disk('public')->delete($curriculum->img_path);
-
-            $curriculum->update([
-                'img_path' => null,
-            ]);
         }
+        $curriculum->delete();
     }
     public function storeImage()
     {

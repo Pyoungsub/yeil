@@ -21,4 +21,8 @@ class Group extends Model
     {
         return $this->hasMany(AdditionalPart::class);
     }
+    public function group_photos()
+    {
+        return $this->hasMany(GroupPhoto::class);
+    }
 }

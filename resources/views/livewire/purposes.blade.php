@@ -41,9 +41,7 @@
     <div class="bg-black pt-8">
         <div class="py-12 px-2 max-w-7xl mx-auto">
             @foreach($purpose->groups as $group)
-                <div class="px-2 sm:px-2">
-                    <h2 class="text-4xl text-center text-white font-bold"><span class="text-red-700">Y</span>EIL {{$group->group_ko}}</h2>
-                </div>
+                <livewire:purposes.groups :group="$group" />
             @endforeach
         </div>
     </div>
