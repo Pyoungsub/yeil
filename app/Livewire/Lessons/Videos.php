@@ -51,7 +51,6 @@ class Videos extends Component
             ]);
 
         }
-
         $this->reset([
             'videoModal',
             'video',
@@ -95,6 +94,8 @@ class Videos extends Component
     }
     public function render()
     {
-        return view('livewire.lessons.videos');
+        return view('livewire.lessons.videos', [
+            'videos' => LessonVideo::where('lesson_id', $this->lesson->id)->get()
+        ]);
     }
 }

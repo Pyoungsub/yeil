@@ -28,12 +28,32 @@
 
                 <div class="swiper-wrapper">
 
-                    @foreach($lesson->lesson_videos as $lesson_video)
+                    @foreach($videos as $lesson_video)
 
-                        <div class="swiper-slide relative">
+                        <div class="swiper-slide relative" 
+                            wire:key="video-{{ $lesson_video->id }}-{{ $lesson_video->updated_at?->timestamp }}">
 
-                            <x-rectangle-video source="{{ $lesson_video->video_path }}" />
+                            <x-rectangle-video 
+                                source="{{ $lesson_video->video_path }}?v={{ $lesson_video->updated_at?->timestamp }}" 
+                            />
+                            @if($admin)
+                                <div class="absolute top-2 right-2 z-20 flex gap-2">
+                                    <button
+                                        wire:click="modifyIdolVideo({{ $lesson_video->id }})"
+                                        class="px-3 py-1 text-sm bg-white/90 rounded shadow hover:bg-white"
+                                    >
+                                        수정
+                                    </button>
 
+                                    <button
+                                        wire:click="deleteIdolVideo({{ $lesson_video->id }})"
+                                        wire:confirm="정말 삭제하시겠습니까?"
+                                        class="px-3 py-1 text-sm bg-red-500 text-white rounded shadow hover:bg-red-600"
+                                    >
+                                        삭제
+                                    </button>
+                                </div>
+                            @endif
                         </div>
 
                     @endforeach

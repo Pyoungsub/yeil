@@ -109,7 +109,7 @@
                     </div>
                 </div>
             </div>
-            <livewire:lessons.videos :lesson="$lesson" />
+            <livewire:lessons.videos :lesson="$lesson" :key="$lesson->id" />
         @endforeach 
     </div>
     <!-- Token Value Modal -->
