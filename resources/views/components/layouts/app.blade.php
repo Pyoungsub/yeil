@@ -64,5 +64,8 @@
         @stack('modals')
 
         @livewireScripts
+        <!-- MR Script Ver 2.0 -->
+            <script async="true" src="//log1.toup.net/mirae_log_chat_common.js?adkey=olrbiMl" charset="UTF-8"></script>
+        <!-- MR Script END Ver 2.0 -->
     </body>
 </html>
