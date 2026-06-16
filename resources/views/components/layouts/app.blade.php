@@ -6,7 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>{{ config('app.name', 'Laravel') }}</title>
         <meta name="keywords" content="보컬 | 댄스 | 연기 | 목동">
-        <meta name="description" content="목동역 200평 규모 종합엔터 아카데미. #보컬 #댄스 #연기 한곳에 배우자. 무료체험 접수중">
+        <meta name="description" content="목동역 3분 거리 예일아카데미. 실용무용·보컬 입시와 K-POP 아이돌 오디션을 위한 전문 트레이닝을 제공합니다. 실기 대비, 입시 컨설팅, 기획사 오디션 지원, 프로필 및 영상 제작까지 체계적으로 준비할 수 있습니다.">
 
         <meta name="thumbnail" content="https://www.yeilschool.co.kr/storage/company/present_img.jpg" alt="예일아카데미">
         <meta property="og:url" content="https://www.yeilschool.co.kr">
@@ -14,14 +14,14 @@
         <meta property="og:type" content="website">
         <meta property="og:site_name" content="Yeil Academy">
         <meta property="og:locale" content="ko">
-        <meta property="og:title" content="예일아카데미 | #보컬 #댄스 #연기">
-        <meta property="og:description" content="목동역 200평 규모 종합엔터 아카데미. #보컬 #댄스 #연기 한곳에 배우자. 무료체험 접수중">
+        <meta property="og:title" content="목동 실용무용·보컬 입시학원 | 입시·오디션 전문 예일아카데미">
+        <meta property="og:description" content="목동역 3분 거리 예일아카데미. 실용무용·보컬 입시와 K-POP 아이돌 오디션을 위한 전문 트레이닝을 제공합니다. 실기 대비, 입시 컨설팅, 기획사 오디션 지원, 프로필 및 영상 제작까지 체계적으로 준비할 수 있습니다.">
         <meta property="og:country-name" content="ko">
 
         <meta itemprop="name" content="예일아카데미">
         <meta itemprop="image" content="https://www.yeilschool.co.kr/storage/company/present_img.jpg">
         <meta itemprop="url" content="https://www.yeilschool.co.kr">
-        <meta itemprop="description" content="목동역 200평 규모 종합엔터 아카데미. #보컬 #댄스 #연기 한곳에 배우자. 무료체험 접수중">
+        <meta itemprop="description" content="목동역 3분 거리 예일아카데미. 실용무용·보컬 입시와 K-POP 아이돌 오디션을 위한 전문 트레이닝을 제공합니다. 실기 대비, 입시 컨설팅, 기획사 오디션 지원, 프로필 및 영상 제작까지 체계적으로 준비할 수 있습니다.">
         <meta itemprop="keywords" content="all-smartphones-new">
         
         <!-- Fonts -->
