@@ -1,6 +1,18 @@
 <div class="mt-12 max-w-5xl mx-auto">
     <div class="grid gap-8">
         @foreach ($lessons as $lesson)
+            @php
+                $photos = $lesson->mainpage_lesson_photos;
+
+                $photo1 = $photos->get(0);
+                $photo2 = $photos->get(1);
+                $photo3 = $photos->get(2);
+
+                $defaultImage = asset('storage/vocal/mNvXDdVAhpyDQWQSRBm3Ekt6xKBopMye5NqqKiut.png');
+                $link = $lesson->lesson == 'act'
+                    ? 'https://www.yeilactor.co.kr/'
+                    : route('lessons', ['lesson' => $lesson->lesson]);
+            @endphp
             <div class="py-6 px-4 sm:p-6 md:py-10 md:px-8 bg-white border rounded-lg shadow-lg">
                 <div class="max-w-4xl mx-auto grid grid-cols-1 lg:max-w-5xl lg:gap-x-20 lg:grid-cols-2">
                     <div class="relative p-3 col-start-1 row-start-1 flex flex-col-reverse rounded-lg bg-gradient-to-t from-black/75 via-black/0 sm:bg-none sm:row-start-2 sm:p-0 lg:row-start-1">
@@ -8,68 +20,45 @@
                         <p class="text-sm leading-4 font-medium text-white sm:text-slate-500 dark:sm:text-slate-400">2층 연습실</p>
                     </div>
                     <div class="grid gap-4 col-start-1 col-end-3 row-start-1 sm:mb-6 sm:grid-cols-4 lg:gap-6 lg:col-start-2 lg:row-end-6 lg:row-span-6 lg:mb-0">
+                        
                         @if($admin)
-                            <div class="relative sm:col-span-4 w-full h-60 bg-cover bg-center bg-no-repeat rounded-lg sm:h-52 sm:col-span-2 lg:col-span-full" style="background-image:url({{ $lesson->mainpage_lesson_photos->first() ? asset('storage/'.$lesson->mainpage_lesson_photos->first()->img_path ) :  asset('storage/vocal/mNvXDdVAhpyDQWQSRBm3Ekt6xKBopMye5NqqKiut.png') }}" loading="lazy">
-                                <button class="absolute right-0 p-2 bg-white rounded border" wire:click="modify({{$lesson->id}}, 1)">{{ __('수정') }}</button>
+                            <div class="relative sm:col-span-4 w-full h-60 rounded-lg overflow-hidden sm:h-52 lg:col-span-full">
+
+                                <img
+                                    src="{{ $photo1 ? asset('storage/'.$photo1->img_path) : $defaultImage }}"
+                                    alt="{{ $photo1?->alt ?? $lesson->lesson_ko }}"
+                                    class="w-full h-full object-cover"
+                                    loading="lazy"
+                                >
+
+                                <button
+                                    class="absolute right-2 top-2 p-2 bg-white rounded border shadow"
+                                    wire:click="modify({{ $lesson->id }},1)">
+                                    수정
+                                </button>
+
                             </div>
-                        @else
-                            @if($lesson->lesson == 'act')
-                                @php
-                                    $photo = $lesson->mainpage_lesson_photos->first();
-                                @endphp
-
-                                <a href="https://www.yeilactor.co.kr/" class="sm:col-span-4">
-                                    <div class="relative w-full h-60 overflow-hidden rounded-lg sm:h-52 lg:col-span-full">
-
-                                        <img
-                                            src="{{ $photo ? asset('storage/'.$photo->img_path) : asset('storage/vocal/mNvXDdVAhpyDQWQSRBm3Ekt6xKBopMye5NqqKiut.png') }}"
-                                            alt="{{ $photo?->alt ?? $lesson->lesson_ko }}"
-                                            loading="lazy"
-                                            class="w-full h-full object-cover"
-                                        >
-
-                                        <h1 class="block sm:hidden absolute top-4 left-0 text-2xl font-bold bg-black/30 text-white rounded-sm px-1">
-                                            {{ $lesson->lesson_ko }}
-                                        </h1>
-
-                                    </div>
-                                </a>
-                            @else
-                                <a href="{{ route('lessons', ['lesson' => $lesson->lesson]) }}" class="sm:col-span-4">
-                                    <div class="relative w-full h-60 overflow-hidden rounded-lg sm:h-52 lg:col-span-full">
-
-                                        @php
-                                            $photo = $lesson->mainpage_lesson_photos->first();
-                                        @endphp
-
-                                        <img
-                                            src="{{ $photo ? asset('storage/'.$photo->img_path) : asset('storage/vocal/mNvXDdVAhpyDQWQSRBm3Ekt6xKBopMye5NqqKiut.png') }}"
-                                            alt="{{ $photo?->alt ?? $lesson->lesson_ko }}"
-                                            loading="lazy"
-                                            class="w-full h-full object-cover"
-                                        >
-
-                                        <h1 class="block sm:hidden absolute top-4 left-0 text-2xl font-bold bg-black/30 text-white rounded-sm px-1">
-                                            {{ $lesson->lesson_ko }}
-                                        </h1>
-
-                                    </div>
-                                </a>
-                            @endif
                         @endif
-                        <div class="relative hidden w-full h-52 rounded-lg sm:block sm:col-span-2 md:col-span-1 lg:row-start-2 lg:col-span-2 lg:h-32">
-                            <div
-                                class="w-full h-full bg-cover bg-center bg-no-repeat rounded-lg"
-                                style="background-image:url({{ $lesson->mainpage_lesson_photos->skip(1)->first() 
-                                    ? asset('storage/'.$lesson->mainpage_lesson_photos->skip(1)->first()->img_path ) 
-                                    : asset('storage/vocal/mNvXDdVAhpyDQWQSRBm3Ekt6xKBopMye5NqqKiut.png') }})">
+                        @unless($admin)
+                            <div class="relative sm:col-span-4 w-full h-60 rounded-lg overflow-hidden sm:h-52 lg:col-span-full">
+                                <img
+                                    src="{{ $photo1 ? asset('storage/'.$photo1->img_path) : $defaultImage }}"
+                                    alt="{{ $photo1?->alt ?? $lesson->lesson_ko }}"
+                                    class="w-full h-full object-cover"
+                                    loading="lazy"
+                                >
+                                <a href="{{ $link }}" class="absolute inset-0 z-10"></a>
                             </div>
+                        @endunless
+                        <div class="relative hidden w-full h-52 rounded-lg sm:block sm:col-span-2 md:col-span-1 lg:row-start-2 lg:col-span-2 lg:h-32">
+                            <img
+                                src="{{ $photo2 ? asset('storage/'.$photo2->img_path) : $defaultImage }}"
+                                alt="{{ $photo2?->alt ?? $lesson->lesson_ko }}"
+                                loading="lazy"
+                                class="w-full h-full object-cover rounded-lg"
+                            />
                             @unless($admin)
-                                @if($lesson->lesson == 'act')
-                                    <a href="https://www.yeilactor.co.kr/" class="absolute inset-0 z-10"></a>
-                                @else
-                                    <a href="{{ route('lessons', ['lesson' => $lesson->lesson]) }}" class="absolute inset-0 z-10"></a>
-                                @endif
+                                <a href="{{ $link }}" class="absolute inset-0 z-10"></a>
                             @endunless
                             @if($admin)
                                 <button
@@ -82,12 +71,12 @@
                             @endif
                         </div>
                         <div class="relative hidden w-full h-52 rounded-lg sm:block sm:col-span-2 md:col-span-1 lg:row-start-2 lg:col-span-2 lg:h-32">
-                            <div
-                                class="w-full h-full bg-cover bg-center bg-no-repeat rounded-lg"
-                                style="background-image:url({{ $lesson->mainpage_lesson_photos->skip(2)->first() 
-                                    ? asset('storage/'.$lesson->mainpage_lesson_photos->skip(2)->first()->img_path ) 
-                                    : asset('storage/vocal/mNvXDdVAhpyDQWQSRBm3Ekt6xKBopMye5NqqKiut.png') }})">
-                            </div>
+                            <img
+                                src="{{ $photo3 ? asset('storage/'.$photo3->img_path) : $defaultImage }}"
+                                alt="{{ $photo3?->alt ?? $lesson->lesson_ko }}"
+                                loading="lazy"
+                                class="w-full h-full object-cover rounded-lg"
+                            />
                             @unless($admin)
                                 @if($lesson->lesson == 'act')
                                     <a href="https://www.yeilactor.co.kr/" class="absolute inset-0 z-10"></a>
@@ -127,11 +116,12 @@
                         </dd>
                     </dl>
                     <div class="mt-4 col-start-1 row-start-3 self-center sm:mt-0 sm:col-start-2 sm:row-start-2 sm:row-span-2 lg:mt-6 lg:col-start-1 lg:row-start-3 lg:row-end-4">
-                        @if($lesson->lesson == 'act')
-                            <a href="https://www.yeilactor.co.kr/" class="bg-indigo-600 text-white text-sm leading-6 font-medium py-2 px-3 rounded-lg">{{ $lesson->lesson_ko }} 더 알아보기</a>
-                        @else
-                            <a href="{{ route('lessons', ['lesson' => $lesson->lesson]) }}" class="bg-indigo-600 text-white text-sm leading-6 font-medium py-2 px-3 rounded-lg">{{ $lesson->lesson_ko }} 더 알아보기</a>
-                        @endif
+                        <a
+                            href="{{ $link }}"
+                            class="bg-indigo-600 text-white text-sm leading-6 font-medium py-2 px-3 rounded-lg"
+                        >
+                            {{ $lesson->lesson_ko }} 더 알아보기
+                        </a>
                     </div>
                 </div>
             </div>
