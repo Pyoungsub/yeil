@@ -14,19 +14,45 @@
                             </div>
                         @else
                             @if($lesson->lesson == 'act')
+                                @php
+                                    $photo = $lesson->mainpage_lesson_photos->first();
+                                @endphp
+
                                 <a href="https://www.yeilactor.co.kr/" class="sm:col-span-4">
-                                    <div class="relative w-full h-60 bg-cover bg-center bg-no-repeat rounded-lg sm:h-52 sm:col-span-2 lg:col-span-full" style="background-image:url({{ $lesson->mainpage_lesson_photos->first() ? asset('storage/'.$lesson->mainpage_lesson_photos->first()->img_path ) :  asset('storage/vocal/mNvXDdVAhpyDQWQSRBm3Ekt6xKBopMye5NqqKiut.png') }}" loading="lazy">
+                                    <div class="relative w-full h-60 overflow-hidden rounded-lg sm:h-52 lg:col-span-full">
+
+                                        <img
+                                            src="{{ $photo ? asset('storage/'.$photo->img_path) : asset('storage/vocal/mNvXDdVAhpyDQWQSRBm3Ekt6xKBopMye5NqqKiut.png') }}"
+                                            alt="{{ $photo?->alt ?? $lesson->lesson_ko }}"
+                                            loading="lazy"
+                                            class="w-full h-full object-cover"
+                                        >
+
                                         <h1 class="block sm:hidden absolute top-4 left-0 text-2xl font-bold bg-black/30 text-white rounded-sm px-1">
                                             {{ $lesson->lesson_ko }}
                                         </h1>
+
                                     </div>
                                 </a>
                             @else
                                 <a href="{{ route('lessons', ['lesson' => $lesson->lesson]) }}" class="sm:col-span-4">
-                                    <div class="relative w-full h-60 bg-cover bg-center bg-no-repeat rounded-lg sm:h-52 sm:col-span-2 lg:col-span-full" style="background-image:url({{ $lesson->mainpage_lesson_photos->first() ? asset('storage/'.$lesson->mainpage_lesson_photos->first()->img_path ) :  asset('storage/vocal/mNvXDdVAhpyDQWQSRBm3Ekt6xKBopMye5NqqKiut.png') }}" loading="lazy">
+                                    <div class="relative w-full h-60 overflow-hidden rounded-lg sm:h-52 lg:col-span-full">
+
+                                        @php
+                                            $photo = $lesson->mainpage_lesson_photos->first();
+                                        @endphp
+
+                                        <img
+                                            src="{{ $photo ? asset('storage/'.$photo->img_path) : asset('storage/vocal/mNvXDdVAhpyDQWQSRBm3Ekt6xKBopMye5NqqKiut.png') }}"
+                                            alt="{{ $photo?->alt ?? $lesson->lesson_ko }}"
+                                            loading="lazy"
+                                            class="w-full h-full object-cover"
+                                        >
+
                                         <h1 class="block sm:hidden absolute top-4 left-0 text-2xl font-bold bg-black/30 text-white rounded-sm px-1">
                                             {{ $lesson->lesson_ko }}
                                         </h1>
+
                                     </div>
                                 </a>
                             @endif
@@ -157,6 +183,15 @@
                             </span>
                         </div>
                         <x-input-error for="photo" class="mt-2" />
+                    </div>
+                    <div class="mt-4">
+                        <x-label value="Image Alt" />
+                        <x-input
+                            type="text"
+                            wire:model.defer="alt"
+                            placeholder="예) 예일 실용음악학원 보컬 레슨"
+                        />
+                        <x-input-error for="alt" class="mt-2" />
                     </div>
                 </div>
             </div>

@@ -15,6 +15,7 @@ class Courses extends Component
     public $selected_lesson;
     public $mainpage_lesson_photo;
     public $img_path = '';
+    public $alt = '';
     public $photo;
     public $photoPreview;
     public function modify($lesson_id, $id)
@@ -25,25 +26,63 @@ class Courses extends Component
         if($this->mainpage_lesson_photo)
         {
             $this->img_path = $this->mainpage_lesson_photo->img_path;
+            $this->alt = $this->mainpage_lesson_photo->alt;
+        }
+        else
+        {
+            $this->img_path = '';
+            $this->alt = '';
         }
         $this->photoModal = true;
     }
     public function save()
     {
-        if($this->mainpage_lesson_photo)
-        {
-            Storage::disk('public')->delete(($this->mainpage_lesson_photo->img_path));
+        $this->validate([
+            'alt' => 'nullable|string|max:255',
+            'photo' => $this->mainpage_lesson_photo
+                ? 'nullable|image|max:5120'
+                : 'required|image|max:5120',
+        ]);
+
+        if ($this->mainpage_lesson_photo) {
+
+            if ($this->photo) {
+
+                Storage::disk('public')->delete($this->mainpage_lesson_photo->img_path);
+
+                $path = $this->photo->storePublicly('lessons', 'public');
+
+                $this->mainpage_lesson_photo->update([
+                    'img_path' => $path,
+                    'alt' => $this->alt,
+                ]);
+
+            } else {
+
+                $this->mainpage_lesson_photo->update([
+                    'alt' => $this->alt,
+                ]);
+
+            }
+
+        } else {
+
             $path = $this->photo->storePublicly('lessons', 'public');
-            $this->mainpage_lesson_photo->update(['img_path' => $path]);
-        }
-        else
-        {
-            $path = $this->photo->storePublicly('lessons', 'public');
+
             $this->selected_lesson->mainpage_lesson_photos()->create([
-                'img_path' => $path
+                'img_path' => $path,
+                'alt' => $this->alt,
             ]);
         }
-        $this->reset(['photoModal', 'selected_lesson', 'img_path', 'photo', 'photoPreview']);
+
+        $this->reset([
+            'photoModal',
+            'selected_lesson',
+            'img_path',
+            'photo',
+            'photoPreview',
+            'alt',
+        ]);
     }
     public function mount()
     {
